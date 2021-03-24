@@ -1,0 +1,35 @@
+{
+	"name": "tikit",
+	"version": "0.0.1",
+	"description": "A collection of ready-made components for Titanium Apps",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo 'Hello World';"
+	},
+	"bin": {
+		"tikit": "bin/tikit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/macCesar/TiComponents.git"
+	},
+	"keywords": [
+		"Appcelerator",
+		"Titanium",
+		"components",
+		"UI",
+		"UX",
+		"purgeTSS",
+		"tailwind"
+	],
+	"author": "César Estrada",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/macCesar/TiComponents/issues"
+	},
+	"homepage": "https://github.com/macCesar/TiComponents#readme",
+	"dependencies": {
+		"chalk": "^4.1.0",
+		"commander": "^7.2.0"
+	}
+}
