@@ -1,0 +1,6 @@
+<Alloy>
+	<!-- Gradient Button -->
+	<Button class="w-auto h-8 m-1 text-sm rounded-md from-blue-400 to-blue-600 bg-gradient-to-b text-blue-50 bg-selected-blue-600">
+		<Label class="w-auto h-8 mx-3 text-base pointer-events-none text-blue-50" text="$.args.title" />
+	</Button>
+</Alloy>

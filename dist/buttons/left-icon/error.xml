@@ -1,0 +1,7 @@
+<Alloy>
+	<!-- Left Icon Button -->
+	<Button class="w-auto h-8 m-1 rounded-md bg-red-500 bg-selected-red-600">
+		<Label class="w-4 h-8 ml-3 text-sm pointer-events-none text-red-50 fas fa-minus-circle" />
+		<Label class="w-auto h-8 ml-8 mr-3 text-base pointer-events-none text-red-50" text="$.args.title" />
+	</Button>
+</Alloy>

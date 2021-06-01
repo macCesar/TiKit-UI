@@ -1,0 +1,6 @@
+<Alloy>
+	<View class="w-screen h-auto mx-auto mt-1 bg-blue-500">
+		<Label class="w-12 ml-0 text-xl text-center text-white fas fa-info-circle"/>
+		<Label class="w-auto h-auto my-2 ml-12 mr-2 text-sm text-left text-white" text="$.args.title" />
+	</View>
+</Alloy>

@@ -1,11 +1,39 @@
 #!/usr/bin/env node
 
-// const chalk = require('chalk');
+const chalk = require('chalk');
+const tikit = require('../index.js');
 const { program } = require('commander');
-// const ticomponents = require('../index.js');
-// const package = require('../package.json');
+const package = require('../package.json');
 
 program
-	.version('0.0.1');
+	.version(package.version)
+	.description(package.description)
+	.action((options) => {
+		console.log('Default command...');
+	});
+
+//! install command
+program
+	.command('install [component] [file-name]')
+	.description('To install components into your project')
+	.action((component, file) => {
+		tikit.install(component, file);
+	});
+
+//! list command
+program
+	.command('list [component]')
+	.description('To enlist available compoments')
+	.action((component) => {
+		tikit.list(component);
+	});
+
+//! help command
+program
+	.command('help [component]')
+	.description('To learn more about a component')
+	.action((component) => {
+		tikit.help(component);
+	});
 
 program.parse(process.argv);

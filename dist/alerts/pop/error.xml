@@ -1,0 +1,14 @@
+<Alloy>
+	<View class="w-11/12 h-auto mt-1 shadow-md">
+		<View class="w-screen h-16 rounded-md bg-red-500">
+			<Label class="w-12 ml-0 text-xl text-center text-white fas fa-minus-circle" />
+
+			<View class="w-screen h-screen ml-12 mr-1.5 bg-red-50">
+				<View class="h-auto mx-3 vertical">
+					<Label class="mx-0 text-base font-bold text-left text-red-500" text="$.args.title" />
+					<Label class="mx-0 text-sm text-left text-gray-500 -mt-0.5" text="$.args.message" />
+				</View>
+			</View>
+		</View>
+	</View>
+</Alloy>

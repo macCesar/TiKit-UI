@@ -4,6 +4,7 @@
 	"description": "A collection of ready-made components for Titanium Apps",
 	"main": "index.js",
 	"scripts": {
+		"build:components": "node ./core/scripts/build-components",
 		"test": "echo 'Hello World';"
 	},
 	"bin": {
@@ -30,6 +31,13 @@
 	"homepage": "https://github.com/macCesar/TiComponents#readme",
 	"dependencies": {
 		"chalk": "^4.1.0",
-		"commander": "^7.2.0"
+		"commander": "^7.2.0",
+		"fs-extra": "^9.1.0",
+		"lodash": "^4.17.21",
+		"prompts": "^2.4.0"
+	},
+	"devDependencies": {
+		"@tailwindcss/ui": "^0.7.2",
+		"tailwindcss": "^2.1.2"
 	}
 }

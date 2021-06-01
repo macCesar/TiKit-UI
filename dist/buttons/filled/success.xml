@@ -1,0 +1,6 @@
+<Alloy>
+	<!-- Filled Button -->
+	<Button class="w-auto h-8 m-1 rounded-md bg-green-500 bg-selected-green-600">
+		<Label class="w-auto h-8 mx-3 text-base pointer-events-none text-green-50" text="$.args.title" />
+	</Button>
+</Alloy>
