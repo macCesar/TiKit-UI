@@ -1,6 +1,7 @@
 <Alloy>
-	<View class="w-screen h-auto mx-auto mt-1 bg-yellow-500">
-		<Label class="w-12 ml-0 text-xl text-center text-white fas fa-exclamation-circle"/>
-		<Label class="w-auto h-auto my-2 ml-12 mr-2 text-sm text-left text-white" text="$.args.title" />
-	</View>
+	<TikitAlertComponent module="tikit.ui" id="$.args.id" class="w-screen h-auto mx-auto opacity-0 bg-yellow-500">
+		<Label class="w-12 ml-0 text-xl text-center text-white pointer-events-none fas fa-exclamation-circle" />
+		<Label class="w-auto h-auto my-2 ml-12 mr-12 text-sm text-left text-white pointer-events-none" text="$.args.title" />
+		<Label class="w-12 mr-0 text-lg text-center pointer-events-none text-yellow-100 fas fa-times" />
+	</TikitAlertComponent>
 </Alloy>

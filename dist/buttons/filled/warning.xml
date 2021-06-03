@@ -1,6 +1,6 @@
 <Alloy>
 	<!-- Filled Button -->
-	<Button class="w-auto h-8 m-1 rounded-md bg-yellow-500 bg-selected-yellow-600">
+	<TikitButtonComponent module="tikit.ui" id="$.args.id" class="w-auto h-8 m-1 rounded-md bg-yellow-500 bg-selected-yellow-600">
 		<Label class="w-auto h-8 mx-3 text-base pointer-events-none text-yellow-50" text="$.args.title" />
-	</Button>
+	</TikitButtonComponent>
 </Alloy>

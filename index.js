@@ -93,7 +93,7 @@ function install(folder, components) {
 			let destination = `${cwd}/app/views/tikit/${folder}`;
 			fs.copySync(source, destination);
 		});
-		logger.warn('Some components use FontAwesome Icons. Please make sure you put them in `./assets/fonts` folder')
+		logger.warn('Some components use FontAwesome Icons. Please make sure you put them in `./assets/fonts` folder');
 	} else if (!components) {
 		let source = path.resolve(__dirname, `dist/${folder}`);
 		if (!fs.existsSync(source)) {
@@ -121,6 +121,8 @@ function install(folder, components) {
 		let destination = `${cwd}/app/views/tikit/${folder}/${components}`;
 		fs.copySync(source, destination);
 	}
+
+	fs.copySync(path.resolve(__dirname, 'dist/lib/tikit.ui.js'), `${cwd}/app/lib/tikit.ui.js`);
 }
 exports.install = install;
 
