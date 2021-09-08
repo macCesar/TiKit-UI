@@ -28,6 +28,14 @@ program
 		tikit.list(component);
 	});
 
+//! prompts command
+program
+	.command('prompts [component] [file-name]')
+	.description('To prompts components into your project')
+	.action((component, file) => {
+		tikit.prompts(component, file);
+	});
+
 //! help command
 program
 	.command('help [component]')

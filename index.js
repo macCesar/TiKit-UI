@@ -1,6 +1,6 @@
-const fs = require('fs-extra');
 const _ = require('lodash');
 const path = require('path');
+const fs = require('fs-extra');
 const chalk = require('chalk');
 const process = require('process');
 const helpers = require('./lib/helpers');
@@ -89,9 +89,11 @@ function install(folder, components) {
 	if (!folder) {
 		let folders = fs.readdirSync(path.resolve(__dirname, 'dist'));
 		folders.forEach(folder => {
-			let source = path.resolve(__dirname, `dist/${folder}`);
-			let destination = `${cwd}/app/views/tikit/${folder}`;
-			fs.copySync(source, destination);
+			if (folder !== 'lib') {
+				let source = path.resolve(__dirname, `dist/${folder}`);
+				let destination = `${cwd}/app/views/tikit/${folder}`;
+				fs.copySync(source, destination);
+			}
 		});
 		logger.warn('Some components use FontAwesome Icons. Please make sure you put them in `./assets/fonts` folder');
 	} else if (!components) {
@@ -143,9 +145,10 @@ function prompts() {
 			hint: '- Space to select. Return to submit'
 		});
 
-		// console.log(response); // => { value: 24 }
+		console.log(response); // => { value: 24 }
 	})();
 }
+exports.prompts = prompts;
 
 //! helper Functions
 function alloyProject() {

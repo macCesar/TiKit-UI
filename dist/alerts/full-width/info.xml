@@ -1,5 +1,5 @@
 <Alloy>
-	<TikitAlertComponent module="tikit.ui" id="$.args.id" class="w-screen h-auto mx-auto opacity-0 bg-blue-500">
+	<TikitAlertComponent module="tikit.ui" tiKitComponent="alert" autoStyle="true" tiKitClass="$.args.tiKitClass" class="w-screen h-auto mx-auto opacity-0 bg-blue-500">
 		<Label class="w-12 ml-0 text-xl text-center text-white pointer-events-none fas fa-info-circle" />
 		<Label class="w-auto h-auto my-2 ml-12 mr-12 text-sm text-left text-white pointer-events-none" text="$.args.title" />
 		<Label class="w-12 mr-0 text-lg text-center pointer-events-none text-blue-100 fas fa-times" />
