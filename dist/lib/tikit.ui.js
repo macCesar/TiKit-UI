@@ -47,7 +47,7 @@ exports.createTikitAvatarComponent = (args) => {
 
 	// For group avatars
 	if (args.last) {
-		tiKitComponent.right = -1 * tiKitComponent.right / 2;
+		tiKitComponent.right = null;
 	}
 
 	return setEventListener(tiKitComponent);
