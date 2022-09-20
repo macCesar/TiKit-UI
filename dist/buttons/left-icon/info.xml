@@ -1,7 +1,7 @@
 <Alloy>
 	<!-- Left fas fa-info-circle Button -->
-	<TikitButtonComponent autoStyle="true" module="tikit.ui" tiKitComponent="button" tiKitClass="$.args.tiKitClass" class="w-auto h-8 my-1 rounded-md bg-blue-500 bg-selected-blue-600">
-		<Label class="w-4 h-8 text-sm pointer-events-none ml-2.5 text-blue-50 fas fa-info-circle" />
-		<Label class="w-auto h-8 ml-8 mr-3 text-base pointer-events-none text-blue-50" text="$.args.title" />
+	<TikitButtonComponent autoStyle="true" module="tikit.ui" tiKitComponent="button" tiKitClass="$.args.tiKitClass" class="w-auto h-8 my-1 rounded-md bg-sky-500 bg-selected-sky-600">
+		<Label class="w-4 h-8 text-sm pointer-events-none ml-2.5 text-sky-50 fas fa-info-circle" />
+		<Label class="w-auto h-8 ml-8 mr-3 text-base pointer-events-none text-sky-50" text="$.args.title" />
 	</TikitButtonComponent>
 </Alloy>

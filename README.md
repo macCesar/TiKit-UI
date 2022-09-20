@@ -1,3 +1,3 @@
 A collection of ready-made components for Titanium Apps
 
-V. 0.0.1
+V. 0.0.5
