@@ -8,13 +8,14 @@ program
 	.version(mainPackage.version)
 	.description(mainPackage.description)
 	.action(() => {
-		console.log('Default command...');
+		tikit.help();
 	});
 
 //! install command
 program
 	.command('install [component] [file-name]')
-	.description('To install components into your project')
+	.alias('i')
+	.description('To install components into your project!')
 	.action((component, file) => {
 		tikit.install(component, file);
 	});
@@ -22,17 +23,10 @@ program
 //! list command
 program
 	.command('list [component]')
+	.alias('l')
 	.description('To enlist available compoments')
 	.action((component) => {
 		tikit.list(component);
-	});
-
-//! prompts command
-program
-	.command('prompts [component] [file-name]')
-	.description('To prompts components into your project')
-	.action((component, file) => {
-		tikit.prompts(component, file);
 	});
 
 //! help command

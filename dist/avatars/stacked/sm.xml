@@ -1,0 +1,5 @@
+<Alloy>
+	<TikitAvatar module="tikit.ui" component="view" classes="$.args.classes" class="-mr-3 border-white border-2 w-8 h-8 bg-transparent rounded-8" last="$.args.last">
+		<ImageView module="tikit.ui" component="avatar" border="$.args.border" image="$.args.image" name="$.args.name" class="w-8 h-8 bg-white rounded-8" />
+	</TikitAvatar>
+</Alloy>

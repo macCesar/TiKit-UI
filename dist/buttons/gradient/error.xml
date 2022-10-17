@@ -1,6 +1,0 @@
-<Alloy>
-	<!-- Gradient Button -->
-	<TikitButtonComponent autoStyle="true" module="tikit.ui" tiKitComponent="button" tiKitClass="$.args.tiKitClass" class="w-auto h-8 my-1 text-sm rounded-md from-red-400 to-red-600 bg-gradient-to-b text-red-50 bg-selected-red-600 touch-feedback-red-600">
-		<Label class="w-auto h-8 mx-3 text-base pointer-events-none text-red-50" text="$.args.title" />
-	</TikitButtonComponent>
-</Alloy>

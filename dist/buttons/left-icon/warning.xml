@@ -1,7 +1,0 @@
-<Alloy>
-	<!-- Left fas fa-exclamation-circle Button -->
-	<TikitButtonComponent autoStyle="true" module="tikit.ui" tiKitComponent="button" tiKitClass="$.args.tiKitClass" class="w-auto h-8 my-1 rounded-md bg-yellow-500 bg-selected-yellow-600">
-		<Label class="w-4 h-8 text-sm pointer-events-none ml-2.5 text-yellow-50 fas fa-exclamation-circle" />
-		<Label class="w-auto h-8 ml-8 mr-3 text-base pointer-events-none text-yellow-50" text="$.args.title" />
-	</TikitButtonComponent>
-</Alloy>

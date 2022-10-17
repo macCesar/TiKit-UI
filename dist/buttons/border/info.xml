@@ -1,6 +1,0 @@
-<Alloy>
-	<!-- Border Button -->
-	<TikitButtonComponent autoStyle="true" module="tikit.ui" tiKitComponent="button" tiKitClass="$.args.tiKitClass" class="w-auto h-8 my-1 bg-white rounded-md border-sky-500 bg-selected-sky-50 border-1">
-		<Label class="w-auto h-8 mx-3 text-base pointer-events-none text-sky-500" text="$.args.title" />
-	</TikitButtonComponent>
-</Alloy>

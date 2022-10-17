@@ -1,6 +1,0 @@
-<Alloy>
-	<!-- Filled Button -->
-	<TikitButtonComponent autoStyle="true" module="tikit.ui" tiKitComponent="button" tiKitClass="$.args.tiKitClass" class="w-auto h-8 my-1 rounded-md bg-red-500 bg-selected-red-600">
-		<Label class="w-auto h-8 mx-3 text-base pointer-events-none text-red-50" text="$.args.title" />
-	</TikitButtonComponent>
-</Alloy>

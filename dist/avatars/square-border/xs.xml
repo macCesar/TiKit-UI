@@ -1,3 +1,0 @@
-<Alloy>
-	<TikitAvatarComponent autoStyle="true" module="tikit.ui" tiKitComponent="avatar" tiKitClass="$.args.tiKitClass" image="$.args.image" name="$.args.name" class="my-0.5 bg-white border-2 border-white w-6 h-6 rounded-2" />
-</Alloy>

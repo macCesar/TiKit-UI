@@ -1,10 +1,10 @@
 {
 	"name": "tikit",
-	"version": "0.0.5",
+	"version": "1.0.0",
 	"description": "A collection of ready-made components for Titanium Apps",
 	"main": "index.js",
 	"scripts": {
-		"build:components": "node ./core/scripts/build-components"
+		"build": "node ./core/scripts/build-components"
 	},
 	"bin": {
 		"tikit": "bin/tikit"
@@ -30,7 +30,7 @@
 	"homepage": "https://github.com/macCesar/TiComponents#readme",
 	"dependencies": {
 		"chalk": "^4.1.2",
-		"commander": "^9.4.0",
+		"commander": "^9.4.1",
 		"fs-extra": "^10.1.0",
 		"lodash": "^4.17.21",
 		"prompts": "^2.4.2",
