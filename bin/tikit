@@ -2,20 +2,28 @@
 
 const tikit = require('../index.js');
 const { program } = require('commander');
-const mainPackage = require('../package.json');
+const pkg = require('../package.json');
+const updateNotifier = require('update-notifier');
+
+// check if a new version of PurgeTSS is available and print an update notification
+const notifier = updateNotifier({ pkg });
+if (notifier.update && notifier.update.latest !== pkg.version) {
+	notifier.notify({ defer: false, isGlobal: true });
+}
 
 program
-	.version(mainPackage.version)
-	.description(mainPackage.description)
+	.version(pkg.version)
+	.description(pkg.description)
 	.action(() => {
 		tikit.help();
 	});
 
 //! install command
 program
-	.command('install [component] [file-name]')
+	.command('install')
+	// .command('install [component] [file-name]')
 	.alias('i')
-	.description('To install components into your project!')
+	.description('To install TiKit UI Components in your project!')
 	.action((component, file) => {
 		tikit.install(component, file);
 	});
@@ -24,17 +32,17 @@ program
 program
 	.command('list [component]')
 	.alias('l')
-	.description('To enlist available compoments')
+	.description('Display a list of available compoments')
 	.action((component) => {
 		tikit.list(component);
 	});
 
 //! help command
-program
-	.command('help [component]')
-	.description('To learn more about a component')
-	.action((component) => {
-		tikit.help(component);
-	});
+// program
+// 	.command('help [component]')
+// 	.description('To learn more about a component')
+// 	.action((component) => {
+// 		tikit.help(component);
+// 	});
 
 program.parse(process.argv);

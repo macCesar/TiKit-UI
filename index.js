@@ -80,10 +80,11 @@ function list(folder) {
 		});
 	}
 
-	console.log('\n' + packageLabel, 'Run', chalk.yellow('`tikit install all`'), 'to install the entire TiKit component library');
-	logger.info('Run', chalk.yellow('`tikit install [componet]`'), 'to install all files and variants of a component');
-	logger.info('Run', chalk.yellow('`tikit install [componet/variant]`'), 'to install all files of a component’s variant');
-	logger.info('Run', chalk.yellow('`tikit install [componet/variant] [name]`'), 'to install a single file of a component’s variant');
+	console.log('\n' + packageLabel, 'Run', chalk.yellow('`tikit install`'), 'and follow an interactive select prompt');
+	// logger.info('Run', chalk.yellow('`tikit install all`'), 'to install the entire component library');
+	// logger.info('Run', chalk.yellow('`tikit install [componet]`'), 'to install all files and variants of a component');
+	// logger.info('Run', chalk.yellow('`tikit install [componet/variant]`'), 'to install all files of a component’s variant');
+	// logger.info('Run', chalk.yellow('`tikit install [componet/variant] [name]`'), 'to install a single file of a component’s variant');
 }
 exports.list = list;
 
