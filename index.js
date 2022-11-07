@@ -193,7 +193,11 @@ function prompts() {
 }
 
 function postInstall(message) {
-	checkForKitUI();
+	if (!fs.existsSync(cwd + '/app/lib')
+		|| !fs.existsSync(cwd + '/app/lib/tikit.ui.js')
+		|| fs.statSync(path.resolve(__dirname, 'dist/lib/tikit.ui.js')).mtime > fs.statSync(cwd + '/app/lib/tikit.ui.js').mtime) {
+		installKitUI();
+	}
 
 	logger.info('Components installed in', message);
 
@@ -216,19 +220,6 @@ function walkSync(currentDirPath, callback, spaces = '') {
 	});
 
 	callback(actualFiles, spaces);
-}
-
-function checkForKitUI() {
-	if (!fs.existsSync(cwd + '/app/lib')) {
-		installKitUI();
-	} else {
-		let files = fs.readdirSync(cwd + '/app/lib');
-		let tikitlib = files.filter((file) => file.includes('tikit.ui.js'));
-
-		if (tikitlib.length === 0) {
-			installKitUI();
-		}
-	}
 }
 
 function installKitUI() {

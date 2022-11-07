@@ -1,9 +1,9 @@
 <Alloy>
-	<TikitCard module="tikit.ui" component="showcase" classes="$.args.classes" class="w-11/12 h-auto rounded-2xl bg-gray-400/80">
+	<TikitCard module="tikit.ui" component="showcase" classes="$.args.classes" class="w-11/12 h-auto rounded-2xl bg-gray-500/90">
 		<View class="mx-5 mt-5 mb-4 vertical">
-			<ImageView image="$.args.image" class="w-screen h-auto rounded-6 ios:prevent-default-image" />
-			<Label text="$.args.title" class="w-full mt-4 text-base font-bold text-left text-black/90" />
-			<Label text="$.args.text" class="w-full text-sm text-left text-black/80" />
+			<ImageView name="$.args.name" image="$.args.image" class="w-screen h-auto rounded-6 ios:prevent-default-image" />
+			<Label text="$.args.title" class="w-full mt-4 text-base font-bold text-left text-white/90" />
+			<Label text="$.args.text" class="w-full text-sm text-left text-white/80" />
 		</View>
 	</TikitCard>
 </Alloy>

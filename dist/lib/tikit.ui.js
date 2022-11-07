@@ -19,19 +19,6 @@ exports.createLabel = args => {
 	return kitComponent;
 }
 
-exports.createImageView = args => {
-	if (args.border) {
-		args.borderWidth = 2;
-		args.borderColor = '#fff';
-	}
-
-	let kitComponent = Ti.UI.createImageView(args);
-
-	if (args.classes) kitComponent.applyProperties(createStyles(args.classes.split(' '), 'Ti.UI.ImageView'));
-
-	return kitComponent;
-};
-
 exports.createTab = args => {
 	if (args.icon && args.icon.includes(' ')) args.icon = labelToImage(createStyles(args.icon.split(' '), 'Ti.UI.Label'));
 
@@ -59,7 +46,7 @@ exports.createAnnotation = args => {
 }
 
 exports.createIcon = args => {
-	if (args.id === 'close' && !args.dismissible) return '';
+	if (args.id === 'close' && !args.dismissible) return Ti.UI.createLabel({ width: 0, height: 0, right: 0 });
 
 	let kitComponent = Ti.UI.createLabel(args);
 
@@ -133,6 +120,8 @@ exports.createTikitAvatar = args => {
 exports.createTikitCode = args => {
 	let kitComponent = Ti.UI.createView(args);
 
+	if (args.copy) kitComponent.addEventListener('click', tiKitCopy);
+
 	if (args.classes) kitComponent.applyProperties(createStyles(args.classes.split(' ').filter((classes) => !classes.includes('bg-')), 'Ti.UI.View'));
 
 	return kitComponent;
@@ -149,10 +138,18 @@ exports.createTikitCard = args => {
 // !Helper Functions
 function tiKitEvent(e) {
 	// Remove alert
-	if (e.source.component === 'alert' || e.source.component === 'code') {
+	if (e.source.component === 'alert') {
 		e.source.removeEventListener('click', tiKitEvent);
 
 		e.source.animate({ opacity: 0, duration: (e.source.duration) ? e.source.duration : 250 }, () => { e.source.parent.remove(e.source); });
+	}
+}
+
+function tiKitCopy(e) {
+	if (e.source.btn === 'copy') {
+		Ti.UI.Clipboard.setText(e.source.value);
+
+		alert(L('code_copied', 'Code copied to clipboard!'));
 	}
 }
 
