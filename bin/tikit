@@ -20,8 +20,8 @@ program
 
 //! install command
 program
-	.command('install')
-	// .command('install [component] [file-name]')
+	// .command('install')
+	.command('install [component] [file-name]')
 	.alias('i')
 	.description('To install TiKit UI Components in your project!')
 	.action((component, file) => {
