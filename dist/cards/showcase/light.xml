@@ -1,5 +1,5 @@
 <Alloy>
-	<TikitCard module="tikit.ui" component="showcase" classes="$.args.classes" class="w-11/12 h-auto rounded-2xl bg-gray-500/90">
+	<TikitCard module="tikit.ui" component="showcase" classes="$.args.classes" class="w-11/12 h-auto rounded-12 bg-gray-500/90">
 		<View class="mx-5 mt-5 mb-4 vertical">
 			<ImageView name="$.args.name" image="$.args.image" class="w-screen h-auto rounded-6 ios:prevent-default-image" />
 			<Label text="$.args.title" class="w-full mt-4 text-base font-bold text-left text-white/90" />

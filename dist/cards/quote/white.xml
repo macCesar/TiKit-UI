@@ -1,0 +1,13 @@
+<Alloy>
+	<TikitCard module="tikit.ui" component="card" class="wh-auto" classes="$.args.classes">
+		<View class="m-4 rounded-lg wh-auto bg-white/7.5">
+			<Label class="mt-0 ml-2 text-white/10 text-7xl wh-auto" text="“"/>
+			<Label class="mb-0 mr-2 text-white/10 text-7xl wh-auto" text="”"/>
+
+			<View class="mx-8 mt-6 mb-4 vertical">
+				<Label class="text-lg italic wh-auto text-white/90" text="$.args.text" />
+				<Label text="$.args.name" class="mt-4 mr-0 text-base wh-auto text-white/70" />
+			</View>
+		</View>
+	</TikitCard>
+</Alloy>
