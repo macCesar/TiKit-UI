@@ -38,10 +38,10 @@ Then, run `tikit install` and follow an interactive select prompt:
 ### Alerts
 An alert displays a short and important message attracting the user's attention without interrupting the user's task.
 
-TiKit Alert Component contains 3 variants:
-- callout
-- pop
-- solid
+**TiKit Alert Component contains 3 variants:**
+> - callout
+> - pop
+> - solid
 
 With 6 main colors each: success, danger, warning, info, dark and light.
 
@@ -54,8 +54,9 @@ You can add your own color values using the `shades` command in **PurgeTSS**:
 > purgetss shades '#hexcode2' secondary
 ```
 
+#### Alert Component
 ```xml
-<Alert module="tikit.ui" variant="pop" color="info" delay="500" dismissible="true" title="Dismissible Alert" text="Lorem ipsum dolor sit..."/>
+<Alert module="tikit.ui" variant="pop" color="info" title="Alert Component" text="Lorem ipsum dolor sit..."/>
 ```
 
 #### Addtional properties
@@ -66,39 +67,54 @@ Set the `dismissible` property to true to close it when the user clicks/taps on 
 ### Avatars
 Use Avatars to portray people or objects. It can be used as a visual identifier for a user profile on your app.
 
-TiKit Avatar Component contains 5 variants:
-- chip
-- circular
-- squared
-- portrait
-- landscape
-- stacked
+**TiKit Avatar Component contains 5 variants:**
+> - chip
+> - circular
+> - squared
+> - portrait
+> - landscape
+> - stacked
 
 With 6 different sizes each: xs, sm, md, lg, xl and 2xl.
+
+#### Avatar Component
+```xml
+<Avatar module="tikit.ui" variant="chip" size="base" name="John Doe" image="link-to-image.jpg"/>
+```
 
 ### Buttons
 Buttons allow the user to take actions or make choices.
 
-TiKit Button Component contains 6 variants:
-- border
-- border-rounded
-- filled
-- filled-rounded
-- icon-left
-- icon-right
+**TiKit Button Component contains 6 variants:**
+> - border
+> - border-rounded
+> - filled
+> - filled-rounded
+> - icon-left
+> - icon-right
 
 With 6 different sizes each: xs, sm, base, lg, xl and 2xl.
+
+#### Button Component
+```xml
+<Button module="tikit.ui" variant="border" size="lg" title="Button Name" />
+```
 
 ### Cards
 Cards are used to group and display content in a way that is easily readable, it serves as an entry point to more detailed information.
 
-TiKit Card Component contains 4 variants:
-- code
-- content
-- quote
-- showcase
+**TiKit Card Component contains 4 variants:**
+> - code
+> - content
+> - quote
+> - showcase
 
 With 4 colors each: black, dark, light and white.
+
+#### Card Component
+```xml
+<Card module="tikit.ui" variant="code" color="black" copy="true" title="Card Title" text="Some code or text to display!"/>
+```
 
 ### Tabs
 The Tab component returns an instance of Titanium.UI.Tab that includes a custom icon created with an icon font such as FontAwesome, Material Icons or any other icon font of your choice.
