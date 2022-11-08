@@ -8,7 +8,7 @@ To install it on your machine, run the following command in the terminal:
 > [sudo] npm install -g tikit
 ```
 
-Please have **PurgeTSS** installed as well:
+And have **PurgeTSS** installed as well:
 
 ```bash
 > [sudo] npm install -g purgetss
