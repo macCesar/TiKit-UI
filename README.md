@@ -1,14 +1,25 @@
 # Welcome to TiKit UI Components
+
+<div align="center">
+
+![npm](https://img.shields.io/npm/dm/tikit)
+![npm](https://img.shields.io/npm/v/tikit)
+![NPM](https://img.shields.io/npm/l/tikit)
+
+</div>
+
 TiKit is a collection of UI components for Titanium built on top of Alloy and PurgeTSS.
 
+![TiKit](./assets/images/tikit-poster.png)
+
 ## Installation
-To install it on your machine, run the following command in the terminal:
+To install it, run the following command in the terminal:
 
 ```bash
 > [sudo] npm install -g tikit
 ```
 
-And have **PurgeTSS** installed as well:
+Make sure you have **PurgeTSS** as well:
 
 ```bash
 > [sudo] npm install -g purgetss
@@ -33,15 +44,17 @@ Then, run `tikit install` and follow an interactive select prompt:
     cards
 ```
 
-## Available components and their variants
+# Available components and their variants
 
-### Alerts
+## Alerts
 An alert displays a short and important message attracting the user's attention without interrupting the user's task.
 
+![Alerts](./assets/images/alerts/pop-primary.png)
+
 **TiKit Alert Component contains 3 variants:**
-> - callout
-> - pop
-> - solid
+> * callout
+> * pop
+> * solid
 
 With 6 main colors each: success, danger, warning, info, dark and light.
 
@@ -54,76 +67,84 @@ You can add your own color values using the `shades` command in **PurgeTSS**:
 > purgetss shades '#hexcode2' secondary
 ```
 
-#### Alert Component
+### Alert Component
 ```xml
 <Alert module="tikit.ui" variant="pop" color="info" title="Alert Component" text="Lorem ipsum dolor sit..."/>
 ```
 
-#### Addtional properties
+### Addtional properties
 Use `delay` to display the alert after a period of time and `duration` to set the speed of the animation. Both properties are in milliseconds.
 
 Set the `dismissible` property to true to close it when the user clicks/taps on it.
 
-### Avatars
+## Avatars
 Use Avatars to portray people or objects. It can be used as a visual identifier for a user profile on your app.
 
-**TiKit Avatar Component contains 5 variants:**
-> - chip
-> - circular
-> - squared
-> - portrait
-> - landscape
-> - stacked
+![Alerts](./assets/images/avatars/stacked.png)
+
+**TiKit Avatar Component contains 6 variants:**
+> * chip
+> * circular
+> * square
+> * portrait
+> * landscape
+> * stacked
 
 With 6 different sizes each: xs, sm, md, lg, xl and 2xl.
 
-#### Avatar Component
+### Avatar Component
 ```xml
 <Avatar module="tikit.ui" variant="chip" size="base" name="John Doe" image="link-to-image.jpg"/>
 ```
 
-### Buttons
+## Buttons
 Buttons allow the user to take actions or make choices.
 
+![Alerts](./assets/images/buttons/left-icons.png)
+
 **TiKit Button Component contains 6 variants:**
-> - border
-> - border-rounded
-> - filled
-> - filled-rounded
-> - icon-left
-> - icon-right
+> * border
+> * border-rounded
+> * filled
+> * filled-rounded
+> * icon-left
+> * icon-right
 
 With 6 different sizes each: xs, sm, base, lg, xl and 2xl.
 
-#### Button Component
+### Button Component
 ```xml
 <Button module="tikit.ui" variant="border" size="lg" title="Button Name" />
 ```
 
-### Cards
+## Cards
 Cards are used to group and display content in a way that is easily readable, it serves as an entry point to more detailed information.
 
+![Alerts](./assets/images/cards/showcase-dark.png)
+
 **TiKit Card Component contains 4 variants:**
-> - code
-> - content
-> - quote
-> - showcase
+> * code
+> * content
+> * quote
+> * showcase
 
 With 4 colors each: black, dark, light and white.
 
-#### Card Component
+### Card Component
 ```xml
 <Card module="tikit.ui" variant="code" color="black" copy="true" title="Card Title" text="Some code or text to display!"/>
 ```
 
-### Tabs
+## Tabs
 The Tab component returns an instance of Titanium.UI.Tab that includes a custom icon created with an icon font such as FontAwesome, Material Icons or any other icon font of your choice.
 
 By setting the 'title', 'icon' and 'activeIcon' (iOS only) properties, you'll get a Tab component with the icons nicely rendered.
 
 The 'icon' property is defined with the icon font name and the icon code, for example: 'fa fa-home' or 'mi mi-home'.
 
-#### Additional properties
+![Alerts](./assets/images/tabs/tabs.png)
+
+### Additional properties
 These are regular Titanium.UI.Tab objects, so you can use all the properties and methods available for them.
 
 For example you can set active tint and title color for each tab by using the 'activeTintColor' and 'activeTitleColor' properties:
