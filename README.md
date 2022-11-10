@@ -1,5 +1,5 @@
 # Welcome to TiKit UI Components
-TiKit is a collection of UI components for Titanium that are built on top of Alloy and PurgeTSS.
+TiKit is a collection of UI components for Titanium built on top of Alloy and PurgeTSS.
 
 ## Installation
 To install it on your machine, run the following command in the terminal:
