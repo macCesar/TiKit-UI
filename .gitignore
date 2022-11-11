@@ -2,6 +2,3 @@
 
 # Dependency directories
 node_modules/
-
-# Core components
-core/
