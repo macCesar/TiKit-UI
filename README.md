@@ -26,7 +26,7 @@ Make sure you have **PurgeTSS** as well:
 ```
 
 ## Installing the components
-Once everything is installed on your machine, create a new Alloy project using **PurgeTSS**, *make sure you have `app.idprefix` and `app.idprefix` [settings configured.](https://purgetss.com/docs/commands#requirments)*
+Once everything is installed on your machine, create a new Alloy project using **PurgeTSS**, *make sure you have `app.idprefix` and `app.idprefix` [settings configured.](https://purgetss.com/docs/commands/#requirements)*
 
 ```bash
 > purgetss create myApp
@@ -51,14 +51,14 @@ Then, run `tikit install` and follow an interactive select prompt:
 
 An alert displays a short and important message attracting the user’s attention without interrupting the user’s task.
 
-TiKit Alert Component contains 3 variants:
+**TiKit Alert Component contains 3 variants:**
 * callout
 * pop
 * solid
 
-With 6 main colors each: *success*, *danger*, *warning*, *info*, *dark* and *light*.
+**With 6 main colors each**: *success*, *danger*, *warning*, *info*, *dark* and *light*.
 
-And 2 custom colors for each variant called: *primary* and *secondary*.
+**And 2 custom colors for each variant called**: *primary* and *secondary*.
 
 You can add your own color values using the `shades` command in **PurgeTSS**:
 
@@ -78,7 +78,7 @@ Set the `dismissible` property to true to close it when the user clicks/taps on 
 ```
 
 ### callout
-> ### Main properties: title and text
+> ### Properties: title and text
 
 A simple Alert with a title and brief description.
 
@@ -90,7 +90,7 @@ A simple Alert with a title and brief description.
 
 
 ### pop
-> ### Main properties: title, text and icon
+> ### Properties: title, text and icon
 
 Alerts with a predefined icon to emphasize a message.
 
@@ -105,7 +105,7 @@ Change the icon using the `icon` property and its size with any of **PurgeTSS**�
 ![Alerts pop variant](./assets/images/alerts/pop.png)
 
 ### solid
-> ### Main properties: title and icon
+> ### Properties: title and icon
 
 A full-width, solid banner with a title and a predefined icon.
 
@@ -130,18 +130,18 @@ Use Avatars to portray people or objects. It can be used as a visual identifier 
 * landscape
 * stacked
 
-With 6 different sizes each: xs, sm, md, lg, xl and 2xl.
+**With 6 different sizes each**: *xs*, *sm*, *base*, *lg*, *xl* and *2xl*.
 
 ```xml title="Avatar Component"
 <Avatar variant="chip" size="base" module="tikit.ui" name="John Doe" image="link-to-image.jpg"/>
 ```
 
 ### chip
-> ### Main properties: name and image
+> ### Properties: name and image
 
 Set the name of the person and an image to display, using a local filesystem path, a remote URL, or a Blob object containing image data.
 
-The default colors are bg-gray-200 and text-gray-500. To change them use the `classes` property, like the example below.
+The default colors are `bg-gray-200` and `text-gray-500`. To change them use the `classes` property, like the example below.
 
 ```xml title="chip variant with custom colors"
 <Avatar variant="chip" size="base" name="Mr. John Doe" image="https://randomuser.me/api/portraits/men/86.jpg" classes="bg-violet-900 text-violet-50"/>
@@ -151,7 +151,7 @@ The default colors are bg-gray-200 and text-gray-500. To change them use the `cl
 
 
 ### circular
-> ### Main properties: name, image and border
+> ### Properties: name, image and border
 
 Set `border` to true to show a white border around the image.
 
@@ -165,7 +165,7 @@ Use the `classes` prop to change the border color.
 
 
 ### square
-> ### Main properties: name, image and border
+> ### Properties: name, image and border
 
 Set `border` to true to show a white border around the image.
 
@@ -179,11 +179,11 @@ Use the `classes` prop to change the border color.
 
 
 ### portrait
-> ### Main properties: name and image
+> ### Properties: name and image
 
 Use the `classes` prop to change the border color.
 
-The default border color is border-gray-500, use the `classes` prop to change it.
+The default border color is `border-gray-500`, use the `classes` prop to change it.
 
 ```xml title="portrait variant with custom colors"
 <Avatar variant="portrait" size="base" module="tikit.ui" classes="border-violet-900" image="https://randomuser.me/api/portraits/men/86.jpg"/>
@@ -193,11 +193,11 @@ The default border color is border-gray-500, use the `classes` prop to change it
 
 
 ### landscape
-> ### Main properties: name and image
+> ### Properties: name and image
 
 Use the `classes` prop to change the border color.
 
-The default border color is border-gray-500, use the `classes` prop to change it.
+The default border color is `border-gray-500`, use the `classes` prop to change it.
 
 ```xml title="landscape variant with custom colors"
 <Avatar variant="landscape" size="base" module="tikit.ui" classes="border-violet-900" image="https://randomuser.me/api/portraits/men/86.jpg"/>
@@ -207,7 +207,7 @@ The default border color is border-gray-500, use the `classes` prop to change it
 
 
 ### stacked
-> ### Main properties: title, icon and last
+> ### Properties: title, icon and last
 
 To properly adjust the right margin of the last avatar in a stack, set its `last` property to true.
 
@@ -237,7 +237,7 @@ Buttons allow the user to take actions or make choices.
 * icon-left
 * icon-right
 
-With 6 different sizes each: xs, sm, base, lg, xl and 2xl.
+**With 6 different sizes each**: *xs*, *sm*, *base*, *lg*, *xl* and *2xl*.
 
 ```xml
 <Button module="tikit.ui" variant="border" size="lg" title="Button Name" />
@@ -245,7 +245,7 @@ With 6 different sizes each: xs, sm, base, lg, xl and 2xl.
 
 
 ### border
-> ### Main properties: title
+> ### Property: title
 
 Use the `classes` property to change the color of the title and border:
 
@@ -260,7 +260,7 @@ Use the `classes` property to change the color of the title and border:
 
 
 ### border-rounded
-> ### Main properties: title
+> ### Property: title
 
 Use the `classes` property to change the color of the title and border:
 
@@ -273,7 +273,7 @@ Use the `classes` property to change the color of the title and border:
 
 
 ### filled
-> ### Main properties: title
+> ### Property: title
 
 Use the `classes` property to change the color of the title and background:
 
@@ -285,7 +285,7 @@ Use the `classes` property to change the color of the title and background:
 
 
 ### filled-rounded
-> ### Main properties: title
+> ### Property: title
 
 Use the `classes` property to change the color of the title and background:
 
@@ -300,7 +300,7 @@ Use the `classes` property to change the color of the title and background:
 
 
 ### icon-left
-> ### Main properties: title and icon
+> ### Properties: title and icon
 
 Use the `icon` property to change its icon, color and size.
 
@@ -315,7 +315,7 @@ Use the `classes` property to change the color of the title and background:
 
 
 ### icon-right
-> ### Main properties: title and icon
+> ### Properties: title and icon
 
 Use the `icon` property to change its icon, color and size.
 
@@ -359,7 +359,7 @@ Cards are used to group and display content in a way that is easily readable, it
 * quote
 * showcase
 
-With 4 colors each: black, dark, light and white.
+**With 4 colors each**: *black*, *dark*, *light* and *white*.
 
 ```xml
 <Card variant="code" color="black" module="tikit.ui" copy="true" title="Card Title" text="Some code or text to display!"/>
@@ -370,13 +370,13 @@ With 4 colors each: black, dark, light and white.
 
 
 ### code
-> ### Main properties: title, text and copy
+> ### Properties: title, text and copy
 
 To display small snippets of code.
 
 Use the `copy` property to display a copy button at the top-right corner.
 
-The button’s title and the alert message are set with Titanium’s localization function: L('copy', 'Copy') and L('code_copied', 'Code copied to clipboard!') respectibly, so add both strings: 'copy' and 'code_copied' to your app’s target languages (`app/i18n/xx/strings.xml`) for personalization and translation.
+The button’s title and the alert message are set with Titanium’s localization function: `L('copy', 'Copy')` and `L('code_copied', 'Code copied to clipboard!')` respectibly, so add both strings: `copy` and `code_copied` to your app’s target languages (`app/i18n/xx/strings.xml`) for personalization and translation.
 
 Install a monotype family of your preference and create a `font-mono` style in `./purgetss/config.js`.
 
@@ -391,7 +391,7 @@ We are using `FiraCode-Light` font family in all examples.
 
 
 ### showcase
-> ### Main properties: title, text and image
+> ### Properties: title, text and image
 
 When you need to display an image with a title and a small description.
 
@@ -406,7 +406,7 @@ When you need to display an image with a title and a small description.
 
 
 ### quote
-> ### Main properties: name and text
+> ### Properties: name and text
 
 When you need to display a quote from someone.
 
@@ -422,7 +422,7 @@ When you need to display a quote from someone.
 
 
 ### content
-> ### Main properties: title, subtitle and text
+> ### Properties: title, subtitle and text
 
 Display a block of text with a large title, a highlighted subtitle and paragraphs of text.
 
@@ -437,7 +437,7 @@ Display a block of text with a large title, a highlighted subtitle and paragraph
 
 
 ## Tabs
-The Tab component returns an instance of Titanium.UI.Tab that includes a custom icon created with an icon font such as FontAwesome, Material Icons or any other icon font of your choice.
+The Tab component returns an instance of **Titanium.UI.Tab** that includes a custom icon created with an icon font such as FontAwesome, Material Icons or any other icon font of your choice.
 
 By setting the `title`, `icon` and `activeIcon` (iOS only) properties, you’ll get a Tab component with the icons nicely rendered.
 
@@ -451,7 +451,7 @@ The `icon` property is defined with the icon font name and the icon code, for ex
 
 ### Additional properties
 
-These are regular Titanium.UI.Tab objects, so you can use all the properties and methods available for them.
+These are regular **Titanium.UI.Tab** objects, so you can use all the properties and methods available for them.
 
 For example you can set active tint and title color for each tab by using the `activeTintColor` and `activeTitleColor` properties like this:
 
