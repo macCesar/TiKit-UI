@@ -253,7 +253,7 @@ Use the `classes` property to change the color of the title and border:
 <Button variant="border" size="base" title="Border" module="tikit.ui" classes="border-violet-900 text-violet-900" />
 ```
 
-![Buttons border variant](./assets/images/buttons/border.png)
+![Buttons border variant](./assets/images/buttons/border-iphone.png)
 
 
 
@@ -268,7 +268,7 @@ Use the `classes` property to change the color of the title and border:
 <Button variant="border-rounded" size="base" title="Border Rounded" classes="border-violet-900 text-violet-900" module="tikit.ui" />
 ```
 
-![Buttons border-rounded variant](./assets/images/buttons/border-rounded.png)
+![Buttons border-rounded variant](./assets/images/buttons/border-rounded-iphone.png)
 
 
 
@@ -281,7 +281,7 @@ Use the `classes` property to change the color of the title and background:
 <Button variant="filled" size="base" title="Filled" module="tikit.ui" classes="text-violet-50 bg-violet-900" />
 ```
 
-![Buttons filled variant](./assets/images/buttons/filled.png)
+![Buttons filled variant](./assets/images/buttons/filled-iphone.png)
 
 
 ### filled-rounded
@@ -293,7 +293,7 @@ Use the `classes` property to change the color of the title and background:
 <Button variant="filled-rounded" size="base" title="Filled Rounded" classes="text-violet-50 bg-violet-900" module="tikit.ui" />
 ```
 
-![Buttons filled-rounded variant](./assets/images/buttons/filled-rounded.png)
+![Buttons filled-rounded variant](./assets/images/buttons/filled-rounded-iphone.png)
 
 
 
@@ -310,7 +310,7 @@ Use the `classes` property to change the color of the title and background:
 <Button variant="icon-right" size="base" module="tikit.ui" title="Button" icon="fa fa-file text-violet-50" classes="text-violet-50 bg-violet-900" />
 ```
 
-![Buttons icon-left variant](./assets/images/buttons/icon-left.png)
+![Buttons icon-left variant](./assets/images/buttons/icon-left-iphone.png)
 
 
 
@@ -325,7 +325,7 @@ Use the `classes` property to change the color of the title and background:
 <Button variant="icon-left" size="base" module="tikit.ui" title="Button" icon="fa fa-file text-violet-50" classes="text-violet-50 bg-violet-900" />
 ```
 
-![Buttons icon-right variant](./assets/images/buttons/icon-right.png)
+![Buttons icon-right variant](./assets/images/buttons/icon-right-iphone.png)
 
 
 ### Custom Icons
