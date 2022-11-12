@@ -376,7 +376,7 @@ To display small snippets of code.
 
 Use the `copy` property to display a copy button at the top-right corner.
 
-The button’s title and the alert message are set with Titanium’s localization function: `L('copy', 'Copy')` and `L('code_copied', 'Code copied to clipboard!')` respectibly, so add both strings: `copy` and `code_copied` to your app’s target languages (`app/i18n/xx/strings.xml`) for personalization and translation.
+The button’s title and the alert message are set with Titanium’s localization function: `L('copy', 'Copy')` and `L('code_copied', 'Code copied to clipboard!')` respectively, so add both strings: `copy` and `code_copied` to your app’s target languages (`app/i18n/xx/strings.xml`) for personalization and translation.
 
 Install a monotype family of your preference and create a `font-mono` style in `./purgetss/config.js`.
 
