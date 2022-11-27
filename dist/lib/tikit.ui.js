@@ -172,9 +172,5 @@ function createStyles(_styles, _view) {
 function labelToImage(_styles) {
 	if (!_styles.font.fontSize) _styles.font.fontSize = 26;
 
-	let view = Ti.UI.createView({ width: _styles.font.fontSize + 4, height: _styles.font.fontSize + 4 });
-
-	view.add(Ti.UI.createLabel(_styles));
-
-	return view.toImage();
+	return Ti.UI.createLabel(_styles).toImage();
 }
