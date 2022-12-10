@@ -170,7 +170,7 @@ function createStyles(_styles, _view) {
 }
 
 function labelToImage(_styles) {
-	if (!_styles.font.fontSize) _styles.font.fontSize = 26;
+	if (_styles.font && !_styles.font.fontSize) _styles.font.fontSize = 26;
 
 	return Ti.UI.createLabel(_styles).toImage();
 }
