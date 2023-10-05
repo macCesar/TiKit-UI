@@ -1,3 +1,3 @@
 <Alloy>
-	<TikitAvatar module="tikit.ui" component="avatar" name="$.args.name" image="$.args.image" classes="$.args.classes" class="w-{size} h-{size} bg-white border-white border-{border} rounded-{size}" />
+  <TikitAvatar module="tikit.ui" component="avatar" name="$.args.name" image="$.args.image" classes="$.args.classes" class="w-{size} h-{size} bg-white border-white border-{border} rounded-{size}" />
 </Alloy>

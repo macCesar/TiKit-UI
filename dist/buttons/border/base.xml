@@ -1,5 +1,5 @@
 <Alloy>
-	<TikitButton module="tikit.ui" component="button" classes="$.args.classes" class="w-auto h-8 bg-white border border-gray-500 rounded-md ios:bg-selected-black/10 touch-feedback">
-		<Label module="tikit.ui" text="$.args.title" classes="$.args.classes" class="font-regular w-auto h-8 mx-3 text-base text-gray-500 touch-enabled-false" />
-	</TikitButton>
+  <TikitButton module="tikit.ui" component="button" classes="$.args.classes" class="w-auto h-8 bg-white border border-gray-500 rounded-md ios:bg-selected-black/10 touch-feedback">
+    <Label module="tikit.ui" text="$.args.title" classes="$.args.classes" class="font-regular w-auto h-8 mx-3 text-base text-gray-500 touch-enabled-false" />
+  </TikitButton>
 </Alloy>

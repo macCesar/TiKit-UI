@@ -1,6 +1,6 @@
 <Alloy>
-	<TikitButton module="tikit.ui" component="button" classes="$.args.classes" class="w-auto h-7 rounded-md bg-gray-500 ios:bg-selected-black/10 touch-feedback">
-		<Icon module="tikit.ui" icon="$.args.icon" class="w-7 h-7 ml-0 text-sm text-center touch-enabled-false text-white/90 fa fa-check-circle" />
-		<Label module="tikit.ui" text="$.args.title" classes="$.args.classes" class="font-regular w-auto h-7 ml-7 mr-2 text-sm text-left touch-enabled-false text-white/90" />
-	</TikitButton>
+  <TikitButton module="tikit.ui" component="button" classes="$.args.classes" class="w-auto h-7 rounded-md bg-gray-500 ios:bg-selected-black/10 touch-feedback">
+    <Icon module="tikit.ui" icon="$.args.icon" class="w-7 h-7 ml-0 text-sm text-center touch-enabled-false text-white/90 fa fa-check-circle" />
+    <Label module="tikit.ui" text="$.args.title" classes="$.args.classes" class="font-regular w-auto h-7 ml-7 mr-2 text-sm text-left touch-enabled-false text-white/90" />
+  </TikitButton>
 </Alloy>

@@ -1,13 +1,13 @@
 <Alloy>
-	<TikitCard module="tikit.ui" component="card" class="w-screen h-auto vertical" classes="$.args.classes">
-		<View class="w-full h-auto mt-2 mb-4 vertical touch-enabled-false">
-			<Label text="$.args.title" class="h-auto mx-4 text-3xl font-bold text-left text-gray-900/90 touch-enabled-false" />
+  <TikitCard module="tikit.ui" component="card" class="w-screen h-auto vertical" classes="$.args.classes">
+    <View class="w-full h-auto mt-2 mb-4 vertical touch-enabled-false">
+      <Label id="title" text="$.args.title" class="h-auto mx-4 text-3xl font-bold text-left text-gray-900/90 touch-enabled-false" />
 
-			<View class="w-auto h-auto mx-4 ml-0 rounded mt-0.5 bg-gray-900/10 touch-enabled-false">
-				<Label text="$.args.subtitle" class="w-auto h-auto text-base font-bold text-gray-900/90 my-0.5 mx-1.5 touch-enabled-false" />
-			</View>
+      <View class="w-auto h-auto mx-4 ml-0 rounded mt-0.5 bg-gray-900/10 touch-enabled-false">
+        <Label id="subtitle" text="$.args.subtitle" class="w-auto h-auto text-base font-bold text-gray-900/90 my-0.5 mx-1.5 touch-enabled-false" />
+      </View>
 
-			<Label text="$.args.text" class="h-auto mx-4 mt-1 text-base font-regular text-gray-900/90 touch-enabled-false" />
-		</View>
-	</TikitCard>
+      <Label id="text" text="$.args.text" class="h-auto mx-4 mt-1 text-base font-regular text-gray-900/90 touch-enabled-false" />
+    </View>
+  </TikitCard>
 </Alloy>

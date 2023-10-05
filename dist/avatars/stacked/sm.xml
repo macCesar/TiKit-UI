@@ -1,5 +1,5 @@
 <Alloy>
-	<TikitAvatar module="tikit.ui" component="view" last="$.args.last" classes="$.args.classes" class="-mr-3 border-white border-2 w-10 h-10 bg-transparent rounded-10">
-		<ImageView name="$.args.name" image="$.args.image" class="w-10 h-10 bg-white rounded-10 ios:prevent-default-image touch-enabled-false" />
-	</TikitAvatar>
+  <TikitAvatar module="tikit.ui" component="view" last="$.args.last" classes="$.args.classes" class="-mr-3 border-white border-2 w-10 h-10 bg-transparent rounded-10">
+    <ImageView name="$.args.name" image="$.args.image" class="w-10 h-10 bg-white rounded-10 ios:prevent-default-image touch-enabled-false" />
+  </TikitAvatar>
 </Alloy>

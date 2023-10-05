@@ -1,7 +1,7 @@
 <Alloy>
-	<TikitAlert module="tikit.ui" component="alert" delay="$.args.delay" duration="$.args.duration" dismissible="$.args.dismissible" classes="$.args.classes" class="w-screen h-auto mx-auto opacity-0 bg-gray-400">
-		<Icon module="tikit.ui" icon="$.args.icon" class="w-12 ml-0 text-xl text-center touch-enabled-false text-white/93.5 fas fa-circle-check" />
-		<Label module="tikit.ui" text="$.args.title" classes="$.args.classes" class="w-auto h-auto mx-12 mb-2 text-base font-bold text-left mt-1.5 touch-enabled-false text-white/93.5" />
-		<Icon id="close" module="tikit.ui" dismissible="$.args.dismissible" class="w-12 h-auto mr-0 text-lg text-center touch-enabled-false text-white/93.5 fas fa-times" />
-	</TikitAlert>
+  <TikitAlert module="tikit.ui" component="alert" delay="$.args.delay" duration="$.args.duration" dismissible="$.args.dismissible" classes="$.args.classes" class="w-screen h-auto mx-auto opacity-0 bg-gray-400">
+    <Icon module="tikit.ui" icon="$.args.icon" class="w-12 ml-0 text-xl text-center touch-enabled-false text-white/93.5 fas fa-circle-check" />
+    <Label module="tikit.ui" text="$.args.title" classes="$.args.classes" class="w-auto h-auto mx-12 mb-2 text-base font-bold text-left mt-1.5 touch-enabled-false text-white/93.5" />
+    <Icon id="close" module="tikit.ui" dismissible="$.args.dismissible" class="w-12 h-auto mr-0 text-lg text-center touch-enabled-false text-white/93.5 fas fa-times" />
+  </TikitAlert>
 </Alloy>

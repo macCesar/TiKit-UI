@@ -1,17 +1,23 @@
 <Alloy>
-	<TikitCode module="tikit.ui" component="code" copy="$.args.copy" classes="$.args.classes" class="w-11/12 h-auto">
-		<TextArea value="$.args.text" class="w-screen h-auto font-mono text-sm rounded-lg scrollable-false border-1 ios:px-3 ios:pb-4 ios:pt-12 android:pt-20 android:px-8 android:border-style-none text-white/80 editable-false enable-copy-false border-gray-900/90 bg-gray-900/90 touch-enabled-false" />
+  <TikitCode module="tikit.ui" component="code" copy="$.args.copy" close="$.args.close" classes="$.args.classes" class="w-11/12 h-auto rounded-lg border-1 border-gray-900/90 bg-gray-900/90">
+    <TextArea id="text" value="$.args.text" class="w-screen h-auto font-mono text-sm bg-transparent scrollable-false ios:px-3 ios:pb-4 ios:pt-12 android:pt-20 android:px-8 android:border-style-none text-white/80 editable-false enable-copy-false touch-enabled-false" />
 
-		<View class="w-screen h-8 mt-0 rounded-t-lg bg-gray-900/50">
-			<View class="ml-2 horizontal touch-enabled-false">
-				<View class="w-3 h-3 mr-1 rounded-3 bg-white/50 touch-enabled-false" />
-				<View class="w-3 h-3 mx-0.5 rounded-3 bg-white/50 touch-enabled-false" />
-				<View class="w-3 h-3 ml-1 rounded-3 bg-white/50 touch-enabled-false" />
-			</View>
+    <View class="w-screen h-8 mt-0 rounded-t-lg bg-gray-900/50">
+      <View if="$.args.close" btn="close" class="ml-2 horizontal">
+        <View class="w-3 h-3 mr-1 bg-red-500 rounded-3 touch-enabled-false" />
+        <View class="w-3 h-3 bg-yellow-500 mx-0.5 rounded-3 touch-enabled-false" />
+        <View class="w-3 h-3 ml-1 bg-green-500 rounded-3 touch-enabled-false" />
+      </View>
 
-			<Label text="$.args.title" class="h-auto ml-16 mr-16 text-sm font-bold mt-1.5 text-white/80 touch-enabled-false" />
+      <View if="!$.args.close" class="ml-2 horizontal touch-enabled-false">
+        <View class="w-3 h-3 mr-1 rounded-3 bg-white/50 touch-enabled-false" />
+        <View class="w-3 h-3 mx-0.5 rounded-3 bg-white/50 touch-enabled-false" />
+        <View class="w-3 h-3 ml-1 rounded-3 bg-white/50 touch-enabled-false" />
+      </View>
 
-			<Button if="$.args.copy" btn="copy" class="w-16 h-8 mt-0 mr-0 text-xs font-regular text-center android:touch-feedback text-white/80 rounded-tr-3 bg-gray-900/80" title="L('copy', 'Copy')" value="$.args.text" />
-		</View>
-	</TikitCode>
+      <Label id="title" text="$.args.title" class="h-auto ml-16 mr-16 text-sm font-bold mt-1.5 text-white/80 touch-enabled-false" />
+
+      <Button id="copy" if="$.args.copy" btn="copy" class="w-16 h-8 mt-0 mr-0 text-xs text-center font-regular android:touch-feedback text-white/80 rounded-tr-3 bg-gray-900/80" title="L('copy', 'Copy')" value="$.args.text" />
+    </View>
+  </TikitCode>
 </Alloy>

@@ -1,8 +1,8 @@
 <Alloy>
-	<TikitAlert module="tikit.ui" component="alert" delay="$.args.delay" duration="$.args.duration" dismissible="$.args.dismissible" classes="$.args.classes" class="w-11/12 h-auto opacity-0 bg-gray-400">
-		<View class="w-screen h-auto ml-1 touch-enabled-false bg-white/93.5 vertical">
-			<Label module="tikit.ui" text="$.args.title" classes="$.args.classes" class="font-bold text-left touch-enabled-false text-gray-400 mx-3 mt-2 text-lg" />
-			<Label module="tikit.ui" text="$.args.text" class="h-auto mx-3 text-sm text-left font-regular touch-enabled-false text-gray-600/70 mb-2.5 -mt-0.5" />
-		</View>
-	</TikitAlert>
+  <TikitAlert module="tikit.ui" component="alert" delay="$.args.delay" duration="$.args.duration" dismissible="$.args.dismissible" classes="$.args.classes" class="w-11/12 h-auto opacity-0 bg-gray-400">
+    <View class="w-screen h-auto ml-1 touch-enabled-false bg-white/93.5 vertical">
+      <Label module="tikit.ui" text="$.args.title" classes="$.args.classes" class="font-bold text-left touch-enabled-false text-gray-400 mx-3 mt-2 text-lg" />
+      <Label module="tikit.ui" text="$.args.text" class="h-auto mx-3 text-sm text-left font-regular touch-enabled-false text-gray-600/70 mb-2.5 -mt-0.5" />
+    </View>
+  </TikitAlert>
 </Alloy>

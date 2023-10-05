@@ -1,7 +1,7 @@
 <Alloy>
-	<TikitAvatar module="tikit.ui" component="view" classes="$.args.classes" class="w-auto h-auto rounded-10 horizontal bg-gray-200">
-		<ImageView name="$.args.name" image="$.args.image" class="w-8 h-8 my-1 ml-1 bg-white rounded-8 ios:prevent-default-image touch-enabled-false" />
-		<Label module="tikit.ui" text="$.args.name" classes="$.args.classes" class="text-xs font-regular ml-1.5 text-gray-500 touch-enabled-false" />
-		<View class="w-2 touch-enabled-false" />
-	</TikitAvatar>
+  <TikitAvatar module="tikit.ui" component="view" classes="$.args.classes" class="w-auto h-auto rounded-10 horizontal bg-gray-200">
+    <ImageView name="$.args.name" image="$.args.image" class="w-8 h-8 my-1 ml-1 bg-white rounded-8 ios:prevent-default-image touch-enabled-false" />
+    <Label module="tikit.ui" text="$.args.name" classes="$.args.classes" class="text-xs font-regular ml-1.5 text-gray-500 touch-enabled-false" />
+    <View class="w-2 touch-enabled-false" />
+  </TikitAvatar>
 </Alloy>
