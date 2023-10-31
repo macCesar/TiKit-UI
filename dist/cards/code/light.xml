@@ -3,13 +3,13 @@
     <TextArea id="text" value="$.args.text" class="w-screen h-auto font-mono text-sm bg-transparent scrollable-false ios:px-3 ios:pb-4 ios:pt-12 android:pt-20 android:px-8 android:border-style-none text-white/80 editable-false enable-copy-false touch-enabled-false" />
 
     <View class="w-screen h-8 mt-0 rounded-t-lg bg-gray-500/50">
-      <View if="$.args.close" btn="close" class="ml-2 horizontal">
-        <View class="w-3 h-3 mr-1 bg-red-500 rounded-3 touch-enabled-false" />
-        <View class="w-3 h-3 bg-yellow-500 mx-0.5 rounded-3 touch-enabled-false" />
-        <View class="w-3 h-3 ml-1 bg-green-500 rounded-3 touch-enabled-false" />
+      <View if="$.args.close" btn="close" class="horizontal ml-2">
+        <View class="rounded-3 touch-enabled-false mr-1 h-3 w-3 bg-red-500" />
+        <View class="rounded-3 touch-enabled-false mx-0.5 h-3 w-3 bg-yellow-500" />
+        <View class="rounded-3 touch-enabled-false ml-1 h-3 w-3 bg-green-500" />
       </View>
 
-      <View if="!$.args.close" class="ml-2 horizontal touch-enabled-false">
+      <View if="!$.args.close" class="horizontal touch-enabled-false ml-2">
         <View class="w-3 h-3 mr-1 rounded-3 bg-white/50 touch-enabled-false" />
         <View class="w-3 h-3 mx-0.5 rounded-3 bg-white/50 touch-enabled-false" />
         <View class="w-3 h-3 ml-1 rounded-3 bg-white/50 touch-enabled-false" />

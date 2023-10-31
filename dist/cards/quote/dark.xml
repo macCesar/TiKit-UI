@@ -4,7 +4,7 @@
       <Label class="mt-0 ml-2 text-gray-700/10 text-7xl wh-auto font-regular touch-enabled-false" text="“"/>
       <Label class="mb-0 mr-2 text-gray-700/10 text-7xl wh-auto font-regular touch-enabled-false" text="”"/>
 
-      <View class="mx-8 mt-6 mb-4 vertical touch-enabled-false">
+      <View class="vertical touch-enabled-false mx-8 mb-4 mt-6">
         <Label id="text" class="text-lg italic wh-auto text-gray-700/90 font-regular touch-enabled-false" text="$.args.text" />
         <Label id="name" text="$.args.name" class="mt-4 mr-0 text-base font-regular wh-auto text-gray-700/70 touch-enabled-false" />
       </View>

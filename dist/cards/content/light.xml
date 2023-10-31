@@ -1,6 +1,6 @@
 <Alloy>
-  <TikitCard module="tikit.ui" component="card" class="w-screen h-auto vertical" classes="$.args.classes">
-    <View class="w-full h-auto mt-2 mb-4 vertical touch-enabled-false">
+  <TikitCard module="tikit.ui" component="card" class="vertical h-auto w-screen" classes="$.args.classes">
+    <View class="vertical touch-enabled-false mb-4 mt-2 h-auto w-full">
       <Label id="title" text="$.args.title" class="h-auto mx-4 text-3xl font-bold text-left text-gray-500/90 touch-enabled-false" />
 
       <View class="w-auto h-auto mx-4 ml-0 rounded mt-0.5 bg-gray-500/10 touch-enabled-false">

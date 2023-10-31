@@ -1,13 +1,13 @@
 <Alloy>
-  <TikitAlert module="tikit.ui" component="alert" delay="$.args.delay" duration="$.args.duration" dismissible="$.args.dismissible" classes="$.args.classes" class="w-11/12 h-auto rounded-md shadow-md opacity-0">
-    <View module="tikit.ui" classes="$.args.classes" class="w-screen h-auto rounded-md touch-enabled-false bg-cyan-500">
-      <Icon module="tikit.ui" icon="$.args.icon" class="w-12 ml-0 text-xl text-center touch-enabled-false text-white/93.5 fas fa-info-circle" />
+  <TikitAlert module="tikit.ui" component="alert" delay="$.args.delay" duration="$.args.duration" dismissible="$.args.dismissible" classes="$.args.classes" class="h-auto w-11/12 rounded-md opacity-0 shadow-md">
+    <View module="tikit.ui" classes="$.args.classes" class="touch-enabled-false h-auto w-screen rounded-md bg-cyan-500">
+      <Icon module="tikit.ui" icon="$.args.icon" class="touch-enabled-false text-white/93.5 fas fa-info-circle ml-0 w-12 text-center text-xl" />
 
-      <View class="w-screen h-auto ml-12 touch-enabled-false mr-1.5 bg-white/93.5">
-        <View class="h-auto mx-3 touch-enabled-false vertical">
-          <Label module="tikit.ui" classes="$.args.classes" class="mx-0 mt-2 text-lg font-bold text-left touch-enabled-false text-cyan-500" text="$.args.title" />
+      <View class="touch-enabled-false bg-white/93.5 ml-12 mr-1.5 h-auto w-screen">
+        <View class="touch-enabled-false vertical mx-3 h-auto">
+          <Label module="tikit.ui" classes="$.args.classes" class="touch-enabled-false mx-0 mt-2 text-left text-lg font-bold text-cyan-500" text="$.args.title" />
 
-          <Label module="tikit.ui" class="h-auto mx-0 mb-2 text-sm text-left mt-0.5 font-regular touch-enabled-false text-gray-600/70" text="$.args.text" />
+          <Label module="tikit.ui" class="font-regular touch-enabled-false mx-0 mb-2 mt-0.5 h-auto text-left text-sm text-gray-600/70" text="$.args.text" />
         </View>
       </View>
     </View>
