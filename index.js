@@ -244,5 +244,5 @@ function checkForFontAwesome() {
 function installFontAwesomeMessage() {
 	console.log();
 	logger.warn('Some components use FontAwesome Icons!');
-	logger.warn('Please install them with:', chalk.green(`purgetss fonts -v=fa`));
+	logger.warn('Please install them with:', chalk.green(`purgetss icon-library -v=fa`));
 }
