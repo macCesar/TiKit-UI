@@ -38,8 +38,8 @@
     "update-notifier": "^5.1.0"
   },
   "devDependencies": {
-    "eslint": "^8.52.0",
-    "eslint-config-axway": "^8.0.0",
+    "eslint": "^8.54.0",
+    "eslint-config-axway": "^9.0.0",
     "eslint-plugin-alloy": "^1.2.1"
   }
 }
