@@ -175,23 +175,24 @@ exports.createTikitCard = args => {
 }
 
 // !Helper Functions
-function tiKitEvent(e) {
+function tiKitEvent({ source }) {
   // Remove alert
-  if (e.source.component === 'alert') {
-    e.source.removeEventListener('click', tiKitEvent)
+  if (source.component === 'alert') {
+    source.removeEventListener('click', tiKitEvent)
 
-    e.source.animate({ opacity: 0, duration: (e.source.duration) ? e.source.duration : 250 }, () => {
-      e.source.parent.remove(e.source)
+    source.animate({ opacity: 0, duration: (source.duration) ? source.duration : 250 }, () => {
+      source.parent.remove(source)
     })
   }
 }
 
-function tiKitCodeEvent(e) {
-  if (e.source.btn === 'copy') {
-    Ti.UI.Clipboard.setText(e.source.value)
-    alert(L('code_copied', 'Code copied to clipboard!'))
-  } else if (e.source.btn === 'close') {
-    e.source.parent.parent.hide()
+function tiKitCodeEvent({ source }) {
+  if (source.btn === 'copy') {
+    Ti.UI.Clipboard.setText(source.value)
+    source.applyProperties({ title: L('copied', 'Copied') })
+    setTimeout(() => source.applyProperties({ title: L('copy', 'Copy') }), 1500)
+  } else if (source.btn === 'close') {
+    source.parent.parent.hide()
   }
 }
 
