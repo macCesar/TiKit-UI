@@ -1,3 +1,7 @@
+// TiKit UI v1.0.10
+// Created by César Estrada
+// https://purgetss.com/tikit
+
 // ! First Responders
 exports.createView = args => {
   let kitComponent = Ti.UI.createView(args)
