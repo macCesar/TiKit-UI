@@ -42,7 +42,9 @@ const packageLabel = colores.packageLabel;
 
         elementosReemplazados = _.replace(elementosReemplazados, new RegExp('{negativeMargin}', 'g'), property.negativeMargin)
 
-        fs.writeFileSync(path.resolve(`${currentDistributionGroup}/${template}/${property.name}.xml`), elementosReemplazados, err => { throw err })
+        fs.writeFileSync(path.resolve(`${currentDistributionGroup}/${template}/${property.name}.xml`), elementosReemplazados, err => {
+          throw err
+        })
       })
     })
 
