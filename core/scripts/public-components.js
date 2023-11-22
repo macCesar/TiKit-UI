@@ -19,7 +19,7 @@ exports.components = {
     help: 'Cards\' Help',
     templates: ['content', 'code', 'showcase', 'quote'],
     properties: [
-      { name: 'black', color: 'gray-900', text: 'white' },
+      { name: 'black', color: 'gray-950', text: 'white' },
       { name: 'dark', color: 'gray-700', text: 'white' },
       { name: 'light', color: 'gray-500', text: 'white' },
       { name: 'white', color: 'white', text: 'black' }
