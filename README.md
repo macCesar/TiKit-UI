@@ -91,7 +91,6 @@ This represents a simple alert with a title and a concise description.
 <Alert module="tikit.ui" variant="callout" color="success" title="Callout variant" text="Lorem ipsum dolor sit..." />
 ```
 
-![Alerts callout variant](./assets/images/alerts/callout.png)
 <p align="center">
   <img src="./assets/images/alerts/callout.png" width="375" alt="Alerts callout variant" />
 </p>
