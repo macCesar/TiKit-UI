@@ -1,4 +1,4 @@
-// TiKit UI v1.0.12
+// TiKit UI v1.0.13
 // Created by César Estrada
 // https://purgetss.com/tikit
 
@@ -129,7 +129,7 @@ exports.createTikitAlert = args => {
     kitComponent.applyProperties(createStyles(args.classes.split(' '), 'Ti.UI.View'))
   }
 
-  (args.duration || args.delay) ? kitComponent.animate({ opacity: 1, delay: args.delay ?? 0, duration: args.duration ?? 250 }) : kitComponent.applyProperties({ opacity: 1 })
+  kitComponent.animate({ opacity: 1, delay: args.delay !== undefined ? args.delay : 0, duration: args.duration !== undefined ? args.duration : 250 })
 
   return kitComponent
 }
