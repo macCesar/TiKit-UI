@@ -531,15 +531,22 @@ These methods make common scenarios easier, such as:
      $.card.updateText('Updated Text');
      ```
 
-4. **`updateImage(image)`**
+4. **`updateName(name)`**
+   - Updates the `name` property of the component. This is particularly useful for components like `Avatar` in chip variant.
+     ```javascript
+     // In your controller.js file
+     $.avatar.updateName('John Smith');
+     ```
+
+5. **`updateImage(image)`**
    - Updates the `image` property of the component. This is particularly useful for components like `Avatar` or `Card` that display images.
      ```javascript
      // In your controller.js file
      $.avatar.updateImage('/images/updated-profile.jpg');
      ```
 
-5. **`update(args)`**
-   - A general-purpose method to update multiple properties of a component at once. It supports `title`, `subtitle`, `text`, and `image`.
+6. **`update(args)`**
+   - A general-purpose method to update multiple properties of a component at once. It supports `title`, `subtitle`, `text`, `name`, and `image`.
      ```javascript
      // In your controller.js file
      $.card.update({
