@@ -555,12 +555,19 @@ These methods are available for the following components:
 
 - **Cards** (`<Card>`)
   - Properties: `title`, `subtitle`, `text`, `image`
+  - *Available in all card variants (content, showcase, quote, code)*
+
 - **Avatars** (`<Avatar>`)
-  - Properties: `image`
+  - Properties: `image`, `name`
+  - *The name property is available in chip variant*
+
 - **Alerts** (`<Alert>`)
-  - Properties: `title`, `text`
+  - Properties: `title`, `text`, `icon`
+  - *Text property is not available in solid variant*
+
 - **Buttons** (`<Button>`)
-  - Properties: `title`
+  - Properties: `title`, `icon`
+  - *Icon property is available in icon-left and icon-right variants*
 
 ### Example Usage
 
