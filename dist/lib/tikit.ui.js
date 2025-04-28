@@ -1,4 +1,4 @@
-// TiKit UI v1.0.13
+// TiKit UI v1.0.14
 // Created by César Estrada
 // https://purgetss.com/tikit
 
@@ -204,37 +204,59 @@ function componentExists(_component, _variant, _file) {
   return Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, `/alloy/controllers/tikit/${_component}/${_variant}/${_file}.js`).exists()
 }
 
-function createComponent(_component, _variant, _file, _args) {
-  let component = Alloy.createController(`tikit/${_component}/${_variant}/${_file}`, _args).getView()
-  component.updateTitle = args => {
-    let _title = component.getViewById('title')
-    if (_title) {
-      _title.applyProperties({ text: args })
+function createComponent(component, variant, file, args) {
+  let componentView = Alloy.createController(`tikit/${component}/${variant}/${file}`, args).getView()
+
+  componentView._elements = {
+    text: componentView.getViewById('text'),
+    image: componentView.getViewById('image'),
+    title: componentView.getViewById('title'),
+    subtitle: componentView.getViewById('subtitle')
+  }
+
+  componentView.updateElement = (_value, _element) => {
+    if (componentView._elements[_element]) {
+      let props = {}
+
+      if (_element === 'text') {
+        props = { text: _value, value: _value, height: Ti.UI.SIZE }
+      } else if (_element === 'title' || _element === 'subtitle') {
+        props = { text: _value }
+      } else if (_element === 'image') {
+        props = { image: _value }
+      }
+
+      componentView._elements[_element].applyProperties(props)
     }
   }
-  component.updateSubtitle = args => {
-    let _subtitle = component.getViewById('subtitle')
-    if (_subtitle) {
-      _subtitle.applyProperties({ text: args })
+
+  componentView.updateText = _args => componentView.updateElement(_args, 'text')
+  componentView.updateImage = _args => componentView.updateElement(_args, 'image')
+  componentView.updateTitle = _args => componentView.updateElement(_args, 'title')
+  componentView.updateSubtitle = _args => componentView.updateElement(_args, 'subtitle')
+
+  componentView.update = _args => {
+    if (_args.text) {
+      componentView.updateElement(_args.text, 'text')
+    }
+    if (_args.image) {
+      componentView.updateElement(_args.image, 'image')
+    }
+    if (_args.title) {
+      componentView.updateElement(_args.title, 'title')
+    }
+    if (_args.subtitle) {
+      componentView.updateElement(_args.subtitle, 'subtitle')
     }
   }
-  component.updateText = args => {
-    let _copy = component.getViewById('copy')
-    let _text = component.getViewById('text')
-    if (_copy) {
-      _copy.applyProperties({ value: args })
-    }
-    if (_text) {
-      _text.applyProperties({ text: args })
-      _text.applyProperties({ value: args, height: Ti.UI.SIZE })
-    }
-  }
-  return component
+
+  return componentView
 }
 
 function createStyles(_styles, _view) {
   // apiName is not included in `Alloy.createStyle` to avoid getting extra properties from `index`
   let styles = Alloy.createStyle('index', { classes: _styles.filter(Boolean) })
+
   styles.apiName = _view
 
   return styles

@@ -1,43 +1,43 @@
 #!/usr/bin/env node
 
-const tikit = require('../index.js');
-const { program } = require('commander');
-const pkg = require('../package.json');
-const updateNotifier = require('update-notifier');
+const tikit = require('../index.js')
+const { program } = require('commander')
+const pkg = require('../package.json')
+const updateNotifier = require('update-notifier')
 
 // check if a new version of PurgeTSS is available and print an update notification
-const notifier = updateNotifier({ pkg });
+const notifier = updateNotifier({ pkg })
 if (notifier.update && notifier.update.latest !== pkg.version) {
-	notifier.notify({ defer: false, isGlobal: true });
+  notifier.notify({ defer: false, isGlobal: true })
 }
 
 program
-	.version(pkg.version)
-	.description(pkg.description)
-	.action(() => {
-		tikit.help();
-	});
+  .version(pkg.version)
+  .description(pkg.description)
+  .action(() => {
+    tikit.help()
+  })
 
-//! install command
+// ! install command
 program
-	// .command('install')
-	.command('install [component] [file-name]')
-	.alias('i')
-	.description('To install TiKit UI Components in your project!')
-	.action((component, file) => {
-		tikit.install(component, file);
-	});
+  // .command('install')
+  .command('install [component] [file-name]')
+  .alias('i')
+  .description('To install TiKit UI Components in your project!')
+  .action((component, file) => {
+    tikit.install(component, file)
+  })
 
-//! list command
+// ! list command
 program
-	.command('list [component]')
-	.alias('l')
-	.description('Display a list of available compoments')
-	.action((component) => {
-		tikit.list(component);
-	});
+  .command('list [component]')
+  .alias('l')
+  .description('Display a list of available compoments')
+  .action((component) => {
+    tikit.list(component)
+  })
 
-//! help command
+// ! help command
 // program
 // 	.command('help [component]')
 // 	.description('To learn more about a component')
@@ -45,4 +45,4 @@ program
 // 		tikit.help(component);
 // 	});
 
-program.parse(process.argv);
+program.parse(process.argv)

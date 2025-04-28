@@ -4,14 +4,14 @@ exports.components = {
     help: 'Alerts\' Help',
     templates: ['pop', 'solid', 'callout'],
     properties: [
-      { name: 'info', color: 'cyan-500', icon: 'fas fa-info-circle' },
       { name: 'danger', color: 'red-500', icon: 'fas fa-minus-circle' },
+      { name: 'dark', color: 'gray-600', icon: 'fas fa-circle-check' },
+      { name: 'info', color: 'cyan-500', icon: 'fas fa-info-circle' },
+      { name: 'light', color: 'gray-400', icon: 'fas fa-circle-check' },
       { name: 'primary', color: 'primary', icon: 'fas fa-circle-check' },
       { name: 'success', color: 'green-500', icon: 'fas fa-circle-check' },
       { name: 'secondary', color: 'secondary', icon: 'fas fa-circle-check' },
-      { name: 'warning', color: 'yellow-500', icon: 'fas fa-exclamation-circle' },
-      { name: 'dark', color: 'gray-600', icon: 'fas fa-circle-check' },
-      { name: 'light', color: 'gray-400', icon: 'fas fa-circle-check' },
+      { name: 'warning', color: 'yellow-500', icon: 'fas fa-exclamation-circle' }
     ]
   },
   cards: {
@@ -19,10 +19,10 @@ exports.components = {
     help: 'Cards\' Help',
     templates: ['content', 'code', 'showcase', 'quote'],
     properties: [
-      { name: 'black', color: 'gray-950', text: 'white' },
+      { name: 'white', color: 'white', text: 'black' },
       { name: 'dark', color: 'gray-700', text: 'white' },
       { name: 'light', color: 'gray-500', text: 'white' },
-      { name: 'white', color: 'white', text: 'black' }
+      { name: 'black', color: 'gray-950', text: 'white' },
     ]
   },
   avatars: {
