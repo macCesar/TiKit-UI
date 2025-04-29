@@ -1,4 +1,4 @@
-// TiKit UI v1.1.4
+// TiKit UI v1.1.5
 // Created by César Estrada
 // https://purgetss.com/tikit
 
@@ -8,6 +8,16 @@ exports.createView = args => {
 
   if (args.classes) {
     kitComponent.applyProperties(createStyles(args.classes.split(' ').filter((classes) => classes.includes('bg-')), 'Ti.UI.View'))
+  }
+
+  return kitComponent
+}
+
+exports.createImageView = args => {
+  let kitComponent = Ti.UI.createImageView(args)
+
+  if (args.rounded === false) {
+    kitComponent.applyProperties({ borderRadius: 0 })
   }
 
   return kitComponent
@@ -39,24 +49,6 @@ exports.createTab = args => {
   return Ti.UI.createTab(args)
 }
 
-// ! createAnnotation still in development!!
-exports.createAnnotation = args => {
-  let Map = require('ti.map')
-
-  if (args.image && args.image.includes(' ')) {
-    let theLabel = Ti.UI.createLabel({ text: args.title, color: '#fff' })
-    let theContainer = Ti.UI.createView({ layout: 'vertical', width: Ti.UI.SIZE, height: Ti.UI.SIZE })
-    let theIcon = Ti.UI.createImageView({ image: labelToImage(createStyles(args.image.split(' '), 'Ti.UI.Label')) })
-
-    theContainer.add(theIcon)
-    theContainer.add(theLabel)
-
-    args.image = theContainer.toImage()
-  }
-
-  return Map.createAnnotation(args)
-}
-
 exports.createIcon = args => {
   if (args.id === 'close' && !args.dismissible) {
     return Ti.UI.createLabel({ width: 0, height: 0, right: 0 })
@@ -75,6 +67,7 @@ exports.createIcon = args => {
   return kitComponent
 }
 
+// ! Interfase
 exports.createAlert = args => {
   if (componentExists('alerts', args.variant, args.color)) {
     return createComponent('alerts', args.variant, args.color, args)
@@ -91,6 +84,14 @@ exports.createAvatar = args => {
   throw new Error(`Avatar not found: ${JSON.stringify(args, null, 2)}`)
 }
 
+exports.createButton = args => {
+  if (componentExists('buttons', args.variant, args.size)) {
+    return createComponent('buttons', args.variant, args.size, args)
+  }
+
+  return Ti.UI.createButton(args)
+}
+
 exports.createCard = args => {
   if (componentExists('cards', args.variant, args.color)) {
     return createComponent('cards', args.variant, args.color, args)
@@ -100,24 +101,6 @@ exports.createCard = args => {
 }
 
 // ! Components
-exports.createButton = args => {
-  if (componentExists('buttons', args.variant, args.size)) {
-    return createComponent('buttons', args.variant, args.size, args)
-  }
-
-  return Ti.UI.createButton(args)
-}
-
-exports.createTikitButton = args => {
-  let kitComponent = (OS_IOS) ? Ti.UI.createButton(args) : Ti.UI.createView(args)
-
-  if (args.classes) {
-    kitComponent.applyProperties(createStyles(args.classes.split(' '), (OS_IOS) ? 'Ti.UI.Button' : 'Ti.UI.View'))
-  }
-
-  return kitComponent
-}
-
 exports.createTikitAlert = args => {
   let kitComponent = Ti.UI.createView(args)
 
@@ -154,15 +137,11 @@ exports.createTikitAvatar = args => {
   return kitComponent
 }
 
-exports.createTikitCode = args => {
-  let kitComponent = Ti.UI.createView(args)
-
-  if (args.copy || args.close) {
-    kitComponent.addEventListener('click', tiKitCodeEvent)
-  }
+exports.createTikitButton = args => {
+  let kitComponent = (OS_IOS) ? Ti.UI.createButton(args) : Ti.UI.createView(args)
 
   if (args.classes) {
-    kitComponent.applyProperties(createStyles(args.classes.split(' ').filter((classes) => !classes.includes('bg-')), 'Ti.UI.View'))
+    kitComponent.applyProperties(createStyles(args.classes.split(' '), (OS_IOS) ? 'Ti.UI.Button' : 'Ti.UI.View'))
   }
 
   return kitComponent
@@ -173,6 +152,24 @@ exports.createTikitCard = args => {
 
   if (args.classes) {
     kitComponent.applyProperties(createStyles(args.classes.split(' '), 'Ti.UI.View'))
+  }
+
+  if (args.rounded === false) {
+    kitComponent.applyProperties({ borderRadius: 0 })
+  }
+
+  return kitComponent
+}
+
+exports.createTikitCode = args => {
+  let kitComponent = Ti.UI.createView(args)
+
+  if (args.copy || args.close) {
+    kitComponent.addEventListener('click', tiKitCodeEvent)
+  }
+
+  if (args.classes) {
+    kitComponent.applyProperties(createStyles(args.classes.split(' ').filter((classes) => !classes.includes('bg-')), 'Ti.UI.View'))
   }
 
   return kitComponent
@@ -280,4 +277,22 @@ function labelToImage(_styles) {
   }
 
   return Ti.UI.createLabel(_styles).toImage()
+}
+
+// ! createAnnotation still in development!!
+exports.createAnnotation = args => {
+  let Map = require('ti.map')
+
+  if (args.image && args.image.includes(' ')) {
+    let theLabel = Ti.UI.createLabel({ text: args.title, color: '#fff' })
+    let theContainer = Ti.UI.createView({ layout: 'vertical', width: Ti.UI.SIZE, height: Ti.UI.SIZE })
+    let theIcon = Ti.UI.createImageView({ image: labelToImage(createStyles(args.image.split(' '), 'Ti.UI.Label')) })
+
+    theContainer.add(theIcon)
+    theContainer.add(theLabel)
+
+    args.image = theContainer.toImage()
+  }
+
+  return Map.createAnnotation(args)
 }
