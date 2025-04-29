@@ -1,4 +1,4 @@
-// TiKit UI v1.1.3
+// TiKit UI v1.1.4
 // Created by César Estrada
 // https://purgetss.com/tikit
 
@@ -208,6 +208,7 @@ function createComponent(component, variant, file, args) {
   let componentView = Alloy.createController(`tikit/${component}/${variant}/${file}`, args).getView()
 
   componentView._elements = {
+    icon: componentView.getViewById('icon'),
     name: componentView.getViewById('name'),
     text: componentView.getViewById('text'),
     image: componentView.getViewById('image'),
@@ -219,18 +220,21 @@ function createComponent(component, variant, file, args) {
     if (componentView._elements[_element]) {
       let props = {}
 
-      if (_element === 'text') {
-        props = { text: _value, value: _value, height: Ti.UI.SIZE }
-      } else if (_element === 'title' || _element === 'subtitle' || _element === 'name') {
+      if (_element === 'title' || _element === 'subtitle' || _element === 'name') {
         props = { text: _value }
+      } else if (_element === 'text') {
+        props = { text: _value, value: _value, height: Ti.UI.SIZE }
       } else if (_element === 'image') {
         props = { image: _value }
+      } else if (_element === 'icon') {
+        props = _value
       }
 
       componentView._elements[_element].applyProperties(props)
     }
   }
 
+  componentView.updateIcon = _args => componentView.updateElement(_args, 'icon')
   componentView.updateName = _args => componentView.updateElement(_args, 'name')
   componentView.updateText = _args => componentView.updateElement(_args, 'text')
   componentView.updateImage = _args => componentView.updateElement(_args, 'image')
@@ -238,6 +242,9 @@ function createComponent(component, variant, file, args) {
   componentView.updateSubtitle = _args => componentView.updateElement(_args, 'subtitle')
 
   componentView.update = _args => {
+    if (_args.icon) {
+      componentView.updateElement(_args.icon, 'icon')
+    }
     if (_args.name) {
       componentView.updateElement(_args.name, 'name')
     }
