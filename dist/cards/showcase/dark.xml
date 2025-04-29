@@ -1,7 +1,7 @@
 <Alloy>
-  <TikitCard module="tikit.ui" component="showcase" classes="$.args.classes" class="w-11/12 h-auto rounded-12 bg-gray-700/90">
+  <TikitCard module="tikit.ui" component="showcase" classes="$.args.classes" rounded="$.args.rounded" class="w-11/12 h-auto rounded-12 bg-gray-700/90">
     <View class="vertical touch-enabled-false mx-5 mb-4 mt-5">
-      <ImageView id="image" image="$.args.image" class="rounded-6 ios:prevent-default-image touch-enabled-false h-auto w-screen" />
+      <ImageView module="tikit.ui" id="image" image="$.args.image" rounded="$.args.rounded" classes="$.args.classes" class="rounded-6 ios:prevent-default-image touch-enabled-false h-auto w-screen" />
       <Label id="title" text="$.args.title" class="w-full mt-4 text-base font-bold text-left text-white/90 touch-enabled-false" />
       <Label id="text" text="$.args.text" class="w-full text-sm text-left font-regular text-white/80 touch-enabled-false" />
     </View>
