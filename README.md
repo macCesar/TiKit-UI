@@ -357,9 +357,9 @@ Perfect for showing code examples. Set `copy="true"` to add a copy button.
 
 ### `showcase`
 
-> **Properties:** `title`, `text`, `image`
+> **Properties:** `title`, `text`, `image`, `rounded` (boolean)
 
-Ideal for visually presenting something with a title and short description.
+Perfect for displaying an image with a title and description text. Set `rounded=false` to remove the border radius and display a card with sharp corners.
 
 ```xml title="Showcase Card Example"
 <Card module="tikit.ui" variant="showcase" color="black" title="Project X" text="Mobile app design concept." image="images/showcase/project-x.jpg" />
