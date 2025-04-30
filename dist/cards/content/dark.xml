@@ -7,7 +7,7 @@
         <Label id="subtitle" text="$.args.subtitle" class="w-auto h-auto text-base font-bold text-gray-700/90 my-0.5 mx-1.5 touch-enabled-false" />
       </View>
 
-      <Label id="text" text="$.args.text" class="h-auto mx-4 mt-1 text-base font-regular text-gray-700/90 touch-enabled-false" />
+      <Label id="text" text="$.args.text" class="h-auto mx-4 mt-1 text-sm font-regular text-gray-700/90 touch-enabled-false" />
     </View>
   </TikitCard>
 </Alloy>
