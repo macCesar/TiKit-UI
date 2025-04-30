@@ -357,9 +357,9 @@ Perfect for showing code examples. Set `copy="true"` to add a copy button.
 
 ### `showcase`
 
-> **Properties:** `title`, `text`, `image`, `rounded` (boolean)
+> **Properties:** `title`, `text`, `image`, `rounded` (integer)
 
-Perfect for displaying an image with a title and description text. Set `rounded=false` to remove the border radius and display a card with sharp corners.
+Perfect for displaying an image with a title and description text. The `rounded` property accepts any integer value (0 or greater) to control the border radius. Use `rounded=0` for sharp corners, or increase the value (like `rounded=12`) for more rounded corners.
 
 ```xml title="Showcase Card Example"
 <Card module="tikit.ui" variant="showcase" color="black" title="Project X" text="Mobile app design concept." image="images/showcase/project-x.jpg" />

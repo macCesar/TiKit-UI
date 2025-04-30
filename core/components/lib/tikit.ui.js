@@ -1,4 +1,4 @@
-// TiKit UI v1.1.5
+// TiKit UI v1.1.6
 // Created by César Estrada
 // https://purgetss.com/tikit
 
@@ -16,8 +16,8 @@ exports.createView = args => {
 exports.createImageView = args => {
   let kitComponent = Ti.UI.createImageView(args)
 
-  if (args.rounded === false) {
-    kitComponent.applyProperties({ borderRadius: 0 })
+  if (args.rounded >= 0 && Number.isInteger(args.rounded)) {
+    kitComponent.applyProperties({ borderRadius: args.rounded * 2 })
   }
 
   return kitComponent
@@ -154,8 +154,8 @@ exports.createTikitCard = args => {
     kitComponent.applyProperties(createStyles(args.classes.split(' '), 'Ti.UI.View'))
   }
 
-  if (args.rounded === false) {
-    kitComponent.applyProperties({ borderRadius: 0 })
+  if (args.rounded >= 0 && Number.isInteger(args.rounded)) {
+    kitComponent.applyProperties({ borderRadius: args.rounded * 4 })
   }
 
   return kitComponent
