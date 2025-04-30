@@ -21,6 +21,7 @@ We designed TiKit to help you ship faster and focus on what makes your app uniqu
   * **Consistent Look & Feel**: Components are designed to work well together, giving your app a polished vibe.
   * **Make It Your Own**: Customize colors and styles to match your brand identity.
   * **Light & Fast**: Built with performance in mind, so it won't weigh your app down.
+  * **Smart Defaults**: Each component comes with sensible default values, so you only need to provide what's unique to your use case.
 
 In short, TiKit helps you build great-looking Titanium apps faster. Less UI hassle, more building awesome features!
 
@@ -64,6 +65,45 @@ npm install -g purgetss
     #     buttons
     #     cards
     ```
+
+## Component Default Values
+
+TiKit components are designed to work right out of the box with sensible defaults. Here's a summary of what each primary component uses as defaults when not specified:
+
+| Component   | Property  | Default Value                                                                  | Description                  |
+| ----------- | --------- | ------------------------------------------------------------------------------ | ---------------------------- |
+| **Alerts**  | `color`   | `"dark"`                                                                       | The alert's color scheme     |
+|             | `variant` | `"pop"` (with text) or `"solid"` (without text)                                | The alert's visual style     |
+| **Avatars** | `size`    | `"base"`                                                                       | The avatar's size            |
+|             | `variant` | `"chip"` (with name) or `"square"` (without name)                              | The avatar's shape and style |
+| **Buttons** | `size`    | `"base"`                                                                       | The button's size            |
+|             | `variant` | `"icon-left"` (with icon) or `"filled"` (without icon)                         | The button's visual style    |
+| **Cards**   | `color`   | `"dark"`                                                                       | The card's color scheme      |
+|             | `variant` | `"showcase"` (with image) or `"content"` (with subtitle) or `"code"` (default) | The card's layout style      |
+
+This means you can use components with minimal properties. For example:
+
+```xml
+<!-- Uses variant="pop", color="dark" by default -->
+<Alert module="tikit.ui" title="Simple Alert" text="With default values" />
+
+<!-- Uses variant="square", size="base" by default -->
+<Avatar module="tikit.ui" image="path/to/image.jpg" />
+
+<!-- Uses variant="filled", size="base" by default -->
+<Button module="tikit.ui" title="Default Button" />
+
+<!-- Uses variant="code", color="dark" by default -->
+<Card module="tikit.ui" title="Simple Card" text="Using defaults" />
+
+<!-- Uses variant="content" when subtitle is provided -->
+<Card module="tikit.ui" title="Card with Subtitle" subtitle="Important info" text="Some details" />
+
+<!-- Uses variant="showcase" when image is provided -->
+<Card module="tikit.ui" title="Image Card" text="With an image" image="path/to/image.jpg" />
+```
+
+These defaults make it faster to build interfaces by requiring fewer parameters for common use cases.
 
 ## Available Components & How to Use Them
 
