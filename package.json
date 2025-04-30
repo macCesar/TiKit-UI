@@ -1,6 +1,6 @@
 {
   "name": "tikit",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "A collection of ready-made components for Titanium Apps",
   "main": "index.js",
   "scripts": {
