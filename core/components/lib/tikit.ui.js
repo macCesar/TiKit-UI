@@ -1,4 +1,4 @@
-// TiKit UI v1.1.6
+// TiKit UI v1.1.7
 // Created by César Estrada
 // https://purgetss.com/tikit
 
@@ -69,6 +69,14 @@ exports.createIcon = args => {
 
 // ! Interfase
 exports.createAlert = args => {
+  if (!args.color) {
+    args.color = 'dark'
+  }
+
+  if (!args.variant) {
+    args.variant = args.text ? 'pop' : 'solid'
+  }
+
   if (componentExists('alerts', args.variant, args.color)) {
     return createComponent('alerts', args.variant, args.color, args)
   }
@@ -77,6 +85,14 @@ exports.createAlert = args => {
 }
 
 exports.createAvatar = args => {
+  if (!args.size) {
+    args.size = 'base'
+  }
+
+  if (!args.variant) {
+    args.variant = args.name ? 'chip' : 'square'
+  }
+
   if (componentExists('avatars', args.variant, args.size)) {
     return createComponent('avatars', args.variant, args.size, args)
   }
@@ -85,6 +101,14 @@ exports.createAvatar = args => {
 }
 
 exports.createButton = args => {
+  if (!args.size) {
+    args.size = 'base'
+  }
+
+  if (!args.variant) {
+    args.variant = args.icon ? 'icon-left' : 'filled'
+  }
+
   if (componentExists('buttons', args.variant, args.size)) {
     return createComponent('buttons', args.variant, args.size, args)
   }
@@ -93,6 +117,16 @@ exports.createButton = args => {
 }
 
 exports.createCard = args => {
+  if (!args.color) {
+    args.color = 'dark'
+  }
+
+  if (!args.variant) {
+    if (!args.variant) {
+      args.variant = args.image ? 'showcase' : args.subtitle ? 'content' : 'code'
+    }
+  }
+
   if (componentExists('cards', args.variant, args.color)) {
     return createComponent('cards', args.variant, args.color, args)
   }
