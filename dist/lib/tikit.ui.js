@@ -1,4 +1,4 @@
-// TiKit UI v1.1.8
+// TiKit UI v1.1.9
 // Created by César Estrada
 // https://purgetss.com/tikit
 
@@ -134,6 +134,22 @@ exports.createCard = args => {
   throw new Error(`Card not found: ${JSON.stringify(args, null, 2)}`)
 }
 
+exports.createForm = args => {
+  if (!args.color) {
+    args.color = 'dark'
+  }
+
+  if (!args.variant) {
+    args.variant = 'input'
+  }
+
+  if (componentExists('forms', args.variant, args.color)) {
+    return createComponent('forms', args.variant, args.color, args)
+  }
+
+  throw new Error(`Form not found: ${JSON.stringify(args, null, 2)}`)
+}
+
 // ! Components
 exports.createTikitAlert = args => {
   let kitComponent = Ti.UI.createView(args)
@@ -209,6 +225,16 @@ exports.createTikitCode = args => {
   return kitComponent
 }
 
+exports.createTikitInput = args => {
+  let kitComponent = Ti.UI.createView(args)
+
+  if (args.classes) {
+    kitComponent.applyProperties(createStyles(args.classes.split(' '), 'Ti.UI.View'))
+  }
+
+  return kitComponent
+}
+
 // !Helper Functions
 function tiKitEvent({ source }) {
   // Remove alert
@@ -231,67 +257,86 @@ function tiKitCodeEvent({ source }) {
   }
 }
 
-function componentExists(_component, _variant, _file) {
-  return Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, `/alloy/controllers/tikit/${_component}/${_variant}/${_file}.js`).exists()
+function componentExists(component, variant, file) {
+  return Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, `/alloy/controllers/tikit/${component}/${variant}/${file}.js`).exists()
 }
 
 function createComponent(component, variant, file, args) {
   let componentView = Alloy.createController(`tikit/${component}/${variant}/${file}`, args).getView()
 
-  componentView._elements = {
-    icon: componentView.getViewById('icon'),
-    name: componentView.getViewById('name'),
-    text: componentView.getViewById('text'),
-    image: componentView.getViewById('image'),
-    title: componentView.getViewById('title'),
-    subtitle: componentView.getViewById('subtitle')
+  if (!componentView) {
+    console.error(`Failed to load component view for ${component}/${variant}/${file}`)
+    return null
   }
 
-  componentView.updateElement = (_value, _element) => {
-    if (componentView._elements[_element]) {
+  // Define elements based on the component type
+  const elementsConfig = {
+    forms: ['input', 'label', 'error'],
+    buttons: ['icon', 'text', 'label'],
+    default: ['icon', 'name', 'text', 'image', 'title', 'label', 'error', 'subtitle', 'input'],
+  }
+
+  const elementsToInclude = elementsConfig[component] || elementsConfig.default
+
+  const tempElements = {}
+  elementsToInclude.forEach((element) => {
+    const viewElement = componentView.getViewById(element)
+    if (viewElement) {
+      tempElements[element] = viewElement
+    }
+  })
+  componentView.elements = tempElements
+
+  // Common methods for all components
+  componentView.getValue = () => componentView.elements['input']?.value || null
+
+  componentView.isValid = (showError) => {
+    let valid = true
+    let errorMessage = ''
+    let currentValue = componentView.elements['input']?.value || ''
+
+    if (componentView.elements['input']?.required && !currentValue.trim()) {
+      valid = false
+      errorMessage = L('this_field_is_required', 'This field is required')
+    }
+
+    if (showError !== false) {
+      if (valid) {
+        componentView.elements['error']?.applyProperties({ text: '', visible: false })
+      } else {
+        componentView.elements['error']?.applyProperties({ text: errorMessage, visible: true })
+      }
+    }
+
+    return valid
+  }
+
+  componentView.updateElement = (value, element) => {
+    if (componentView.elements[element]) {
       let props = {}
 
-      if (_element === 'title' || _element === 'subtitle' || _element === 'name') {
-        props = { text: _value }
-      } else if (_element === 'text') {
-        props = { text: _value, value: _value, height: Ti.UI.SIZE }
-      } else if (_element === 'image') {
-        props = { image: _value }
-      } else if (_element === 'icon') {
-        props = _value
+      if (['title', 'subtitle', 'name', 'label', 'error'].includes(element)) {
+        props = { text: value }
+      } else if (element === 'text') {
+        props = { text: value, value: value, height: Ti.UI.SIZE }
+      } else if (element === 'image') {
+        props = { image: value }
+      } else if (element === 'input') {
+        props = { value: value }
+      } else if (element === 'icon') {
+        props = value
       }
 
-      componentView._elements[_element].applyProperties(props)
+      componentView.elements[element].applyProperties(props)
+    } else {
+      console.warn(`Cannot update element '${element}' because it does not exist.`)
     }
   }
 
-  componentView.updateIcon = _args => componentView.updateElement(_args, 'icon')
-  componentView.updateName = _args => componentView.updateElement(_args, 'name')
-  componentView.updateText = _args => componentView.updateElement(_args, 'text')
-  componentView.updateImage = _args => componentView.updateElement(_args, 'image')
-  componentView.updateTitle = _args => componentView.updateElement(_args, 'title')
-  componentView.updateSubtitle = _args => componentView.updateElement(_args, 'subtitle')
-
-  componentView.update = _args => {
-    if (_args.icon) {
-      componentView.updateElement(_args.icon, 'icon')
-    }
-    if (_args.name) {
-      componentView.updateElement(_args.name, 'name')
-    }
-    if (_args.text) {
-      componentView.updateElement(_args.text, 'text')
-    }
-    if (_args.image) {
-      componentView.updateElement(_args.image, 'image')
-    }
-    if (_args.title) {
-      componentView.updateElement(_args.title, 'title')
-    }
-    if (_args.subtitle) {
-      componentView.updateElement(_args.subtitle, 'subtitle')
-    }
-  }
+  elementsToInclude.forEach((element) => {
+    componentView[`update${element.charAt(0).toUpperCase() + element.slice(1)}`] = (value) =>
+      componentView.updateElement(value, element)
+  })
 
   return componentView
 }
@@ -299,7 +344,6 @@ function createComponent(component, variant, file, args) {
 function createStyles(_styles, _view) {
   // apiName is not included in `Alloy.createStyle` to avoid getting extra properties from `index`
   let styles = Alloy.createStyle('index', { classes: _styles.filter(Boolean) })
-
   styles.apiName = _view
 
   return styles
@@ -329,4 +373,117 @@ exports.createAnnotation = args => {
   }
 
   return Map.createAnnotation(args)
+}
+
+// ! Deprecated
+function createComponentXXX(component, variant, file, args) {
+  let componentView = Alloy.createController(`tikit/${component}/${variant}/${file}`, args).getView()
+
+  componentView.elements = {
+    name: componentView.getViewById('name'),
+    text: componentView.getViewById('text'),
+
+    icon: componentView.getViewById('icon'),
+    image: componentView.getViewById('image'),
+
+    label: componentView.getViewById('label'),
+    input: componentView.getViewById('input'),
+    error: componentView.getViewById('error'),
+
+    title: componentView.getViewById('title'),
+    subtitle: componentView.getViewById('subtitle'),
+  }
+
+  componentView.getValue = () => componentView.elements['input'].value
+
+  componentView.isValid = (showError) => {
+    let valid = true
+    let errorMessage = ''
+    let currentValue = componentView.elements['input'].value
+
+    if (componentView.elements['input'].required && !currentValue.trim()) {
+      valid = false
+      errorMessage = L('this_field_is_required', 'This field is required')
+    }
+
+    if (valid && args.validationRegex && currentValue.trim()) {
+      let regex = new RegExp(args.validationRegex)
+      if (!regex.test(currentValue)) {
+        valid = false
+        errorMessage = args.validationErrorMessage || L('formato_invalido', 'Formato inválido') // Mensaje de error personalizado o genérico
+      }
+    }
+
+    if (showError !== false) { // Mostrar error por defecto si no se especifica lo contrario
+      if (valid) {
+        componentView.elements['error'].applyProperties({ text: '', visible: false })
+      } else {
+        componentView.elements['error'].applyProperties({ text: errorMessage, visible: true })
+      }
+    }
+
+    return valid
+  }
+
+  componentView.updateElement = (value, element) => {
+    if (componentView.elements[element]) {
+      let props = {}
+
+      if (element === 'title' || element === 'subtitle' || element === 'name' || element === 'label' || element === 'error') {
+        props = { text: value }
+      } else if (element === 'text') {
+        props = { text: value, value: value, height: Ti.UI.SIZE }
+      } else if (element === 'image') {
+        props = { image: value }
+      } else if (element === 'input') {
+        props = { value: value }
+      } else if (element === 'icon') {
+        props = value
+      }
+
+      componentView.elements[element].applyProperties(props)
+    }
+  }
+
+  componentView.updateIcon = _args => componentView.updateElement(_args, 'icon')
+  componentView.updateName = _args => componentView.updateElement(_args, 'name')
+  componentView.updateText = _args => componentView.updateElement(_args, 'text')
+  componentView.updateImage = _args => componentView.updateElement(_args, 'image')
+  componentView.updateTitle = _args => componentView.updateElement(_args, 'title')
+  componentView.updateInput = _args => componentView.updateElement(_args, 'input')
+  componentView.updateError = _args => componentView.updateElement(_args, 'error')
+  componentView.updateLabel = _args => componentView.updateElement(_args, 'label')
+  componentView.updateSubtitle = _args => componentView.updateElement(_args, 'subtitle')
+
+  componentView.update = _args => {
+    if (_args.icon) {
+      componentView.updateElement(_args.icon, 'icon')
+    }
+    if (_args.name) {
+      componentView.updateElement(_args.name, 'name')
+    }
+    if (_args.text) {
+      componentView.updateElement(_args.text, 'text')
+    }
+    if (_args.image) {
+      componentView.updateElement(_args.image, 'image')
+    }
+    if (_args.title) {
+      componentView.updateElement(_args.title, 'title')
+    }
+    if (_args.subtitle) {
+      componentView.updateElement(_args.subtitle, 'subtitle')
+    }
+    if (_args.input) {
+      componentView.updateElement(_args.input, 'input')
+    }
+    if (_args.label) {
+      componentView.updateElement(_args.label, 'label')
+    }
+    if (_args.error) {
+      componentView.updateElement(_args.error, 'error')
+    }
+  }
+
+  return componentView
 }
