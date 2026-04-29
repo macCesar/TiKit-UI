@@ -1,0 +1,8 @@
+<Alloy>
+  <TikitInput module="tikit.ui" id="$.args.id" component="input" class="vertical mb-2 h-auto w-screen" classes="$.args.classes">
+    <Label if="$.args.label" id="label" class="text-primary-900 w-screen text-left text-sm h-auto" text="$.args.label" />
+    <TextField if="$.args.inputType !== 'textarea'" id="input" required="$.args.required" class="hint-text-primary-300 text-primary autocorrect-false mt-0.5 h-10 w-screen rounded border-primary-800 bg-white/85 p-2 text-base normal-case" value="$.args.value" hintText="$.args.hintText" />
+    <TextArea if="$.args.inputType === 'textarea'" id="input" required="$.args.required" class="hint-text-primary-300 text-primary autocorrect-false mt-0.5 w-screen rounded border-primary-800 bg-white/85 ios:px-1 py-2 android:px-2 text-base normal-case h-24" value="$.args.value" hintText="$.args.hintText" />
+    <Label id="error" class="ml-0 hidden text-left text-xs text-red-600" text="$.args.errorMessage" />
+  </TikitInput>
+</Alloy>

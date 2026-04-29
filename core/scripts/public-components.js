@@ -51,5 +51,24 @@ exports.components = {
       { name: 'xl', size: '10', iconWidth: '9' },
       { name: '2xl', size: '11', iconWidth: '10' }
     ]
+  },
+  forms: {
+    base: 'color',
+    help: 'Forms\' Help',
+    templates: ['input'],
+    properties: [
+      { name: 'danger', hint: 'red-300', border: 'red-500', label: 'red-500', text: 'red-600' },
+      { name: 'info', hint: 'cyan-300', border: 'cyan-500', label: 'cyan-500', text: 'cyan-600' },
+      { name: 'success', hint: 'green-300', border: 'green-500', label: 'green-500', text: 'green-600' },
+      { name: 'warning', hint: 'yellow-300', border: 'yellow-500', label: 'yellow-500', text: 'yellow-600' },
+
+      { name: 'white', hint: 'gray-300', border: 'white', label: 'white', text: 'gray-950' },
+      { name: 'dark', hint: 'gray-400', border: 'gray-600', label: 'gray-600', text: 'gray-700' },
+      { name: 'light', hint: 'gray-300', border: 'gray-400', label: 'gray-400', text: 'gray-500' },
+      { name: 'black', hint: 'gray-500', border: 'gray-900', label: 'gray-900', text: 'gray-950' },
+
+      { name: 'primary', hint: 'primary-300', border: 'primary-800', label: 'primary-900', text: 'primary' },
+      { name: 'secondary', hint: 'secondary-300', border: 'secondary-800', label: 'secondary-900', text: 'secondary' }
+    ]
   }
 }

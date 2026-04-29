@@ -14,7 +14,7 @@ We designed TiKit to help you ship faster and focus on what makes your app uniqu
 
 ### Why You'll Like TiKit:
 
-  * **Ready-to-Go Components**: Grab Alerts, Avatars, Buttons, Cards, and Tabs right out of the box, with different looks and options.
+  * **Ready-to-Go Components**: Grab Alerts, Avatars, Buttons, Cards, Forms, and Tabs right out of the box, with different looks and options.
   * **Style Flexibly with PurgeTSS**: Uses PurgeTSS utility classes, so you can tweak styles easily without writing mountains of TSS.
   * **Update Components on the Fly**: Change properties like text or images dynamically without rebuilding the whole component. Nifty!
   * **Icons Included**: Easily use FontAwesome, Material Icons, and other popular icon fonts.
@@ -64,6 +64,7 @@ npm install -g purgetss
     #     avatars
     #     buttons
     #     cards
+    #     forms
     ```
 
 ## Component Default Values
@@ -80,6 +81,8 @@ TiKit components are designed to work right out of the box with sensible default
 |             | `variant` | `"icon-left"` (with icon) or `"filled"` (without icon)                         | The button's visual style    |
 | **Cards**   | `color`   | `"dark"`                                                                       | The card's color scheme      |
 |             | `variant` | `"showcase"` (with image) or `"content"` (with subtitle) or `"code"` (default) | The card's layout style      |
+| **Forms**   | `color`   | `"dark"`                                                                       | The form field's color scheme |
+|             | `variant` | `"input"`                                                                      | The form field's layout style |
 
 This means you can use components with minimal properties. For example:
 
@@ -101,6 +104,9 @@ This means you can use components with minimal properties. For example:
 
 <!-- Uses variant="showcase" when image is provided -->
 <Card module="tikit.ui" title="Image Card" text="With an image" image="path/to/image.jpg" />
+
+<!-- Uses variant="input", color="dark" by default -->
+<Form module="tikit.ui" label="Email" hintText="you@example.com" />
 ```
 
 These defaults make it faster to build interfaces by requiring fewer parameters for common use cases.
@@ -438,6 +444,57 @@ Use this for presenting text content with a clear hierarchy: a large title, a hi
 
 -----
 
+## Forms
+
+> **Common Properties:** `variant`, `color`, `classes`, `label`, `value`, `hintText`, `required`, `errorMessage`, `inputType`
+
+Capture user input with consistent, themable form fields. Forms come with built-in validation helpers and a dedicated error label, so you don't have to wire that up by hand.
+
+**TiKit Form Variants:**
+
+  * `input`: A label, an input field (single-line `TextField` or multi-line `TextArea`), and an error label below.
+
+**Colors:** Each variant comes in `success`, `danger`, `warning`, `info`, `dark`, `light`, `white`, and `black`. You can also use `primary` and `secondary` if you've configured them with PurgeTSS shades.
+
+**Extra Controls:**
+
+  * `label` (string): Text shown above the input.
+  * `value` (string): Initial value of the input.
+  * `hintText` (string): Placeholder shown when the input is empty.
+  * `required` (boolean): Makes the field mandatory for `isValid()` checks.
+  * `errorMessage` (string): Optional text for the error label below the input.
+  * `inputType` (string): Pass `"textarea"` to render a multi-line `TextArea` instead of a `TextField`.
+
+```xml title="Basic Input Example"
+<Form id="emailField" module="tikit.ui" variant="input" color="dark" label="Email" hintText="you@example.com" required="true" />
+```
+
+### Validating Forms
+
+When you give the field an `id`, you can call helper methods on the proxy from your controller:
+
+  * `getValue()`: Returns the current input value.
+  * `isValid(showError)`: Returns `true` if the field passes validation. When the field is `required` and empty, it returns `false` and (unless `showError === false`) shows the localized error label `L('this_field_is_required', 'This field is required')`.
+
+```javascript
+function onSubmit() {
+  if ($.emailField.isValid()) {
+    var email = $.emailField.getValue()
+    // ...send it off
+  }
+}
+```
+
+### Multi-line Input
+
+Pass `inputType="textarea"` to swap the `TextField` for a `TextArea`:
+
+```xml title="Textarea Example"
+<Form module="tikit.ui" variant="input" color="dark" inputType="textarea" label="Notes" hintText="Anything we should know?" />
+```
+
+-----
+
 ## Tabs
 
 > **Properties:** `title`, `icon`, `activeIcon` (iOS only) + standard `Titanium.UI.Tab` properties
@@ -503,6 +560,7 @@ You can call these on your component's proxy (e.g., `$.myCard.updateTitle(...)`)
   * **Avatars (`<Avatar>`)**: `image`, `name` (`name` mostly for `chip`).
   * **Alerts (`<Alert>`)**: `title`, `text`, `icon` (`text` not applicable to `solid`).
   * **Buttons (`<Button>`)**: `title`, `icon` (`icon` for `icon-left`/`icon-right`).
+  * **Forms (`<Form>`)**: `input`, `label`, `error` — plus `getValue()` and `isValid()` helpers.
 
 ### Example: Updating a Card
 
