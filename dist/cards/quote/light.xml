@@ -1,5 +1,5 @@
 <Alloy>
-  <TikitCard module="tikit.ui" component="card" class="wh-auto" classes="$.args.classes">
+  <TikitCard module="tikit.ui" id="$.args.id" component="card" class="wh-auto" classes="$.args.classes">
     <View class="m-4 rounded-lg wh-auto bg-gray-500/7.5 touch-enabled-false">
       <Label class="mt-0 ml-2 text-gray-500/10 text-7xl wh-auto font-regular touch-enabled-false" text="“"/>
       <Label class="mb-0 mr-2 text-gray-500/10 text-7xl wh-auto font-regular touch-enabled-false" text="”"/>

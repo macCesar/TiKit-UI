@@ -1,5 +1,5 @@
 <Alloy>
-  <TikitCode module="tikit.ui" component="code" copy="$.args.copy" close="$.args.close" classes="$.args.classes" class="w-11/12 h-auto rounded-lg border-1 border-gray-700/90 bg-gray-700/90">
+  <TikitCode module="tikit.ui" id="$.args.id" component="code" copy="$.args.copy" close="$.args.close" classes="$.args.classes" class="w-11/12 h-auto rounded-lg border-1 border-gray-700/90 bg-gray-700/90">
     <TextArea id="text" value="$.args.text" class="w-screen h-auto font-mono text-sm bg-transparent scrollable-false ios:px-3 ios:pb-4 ios:pt-12 android:pt-20 android:px-8 android:border-style-none text-white/80 editable-false enable-copy-false touch-enabled-false" />
 
     <View class="w-screen h-8 mt-0 rounded-t-lg bg-gray-700/50">
