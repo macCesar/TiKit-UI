@@ -458,6 +458,16 @@ function createComponent(component, variant, file, args) {
       componentView.updateElement(value, element)
   })
 
+  componentView.update = (values) => {
+    Object.keys(values).forEach((element) => {
+      if (componentView.elements[element]) {
+        componentView.updateElement(values[element], element)
+      } else {
+        console.warn(`Cannot update element '${element}' because it does not exist.`)
+      }
+    })
+  }
+
   return componentView
 }
 
