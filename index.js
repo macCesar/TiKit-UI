@@ -9,21 +9,59 @@ module.exports.colores = colores;
 const packageLabel = colores.packageLabel;
 
 const cwd = process.cwd();
+
+let _sectionMode = false;
+let _sectionHeaderEmitted = false;
+
+function _emit(text) {
+	if (text === '') {
+		console.log('');
+		return;
+	}
+	if (_sectionMode) {
+		if (_sectionHeaderEmitted) {
+			console.log('   ' + text);
+		} else {
+			console.log(packageLabel, text);
+			_sectionHeaderEmitted = true;
+		}
+	} else {
+		console.log(packageLabel, text);
+	}
+}
+
 const logger = {
 	success: function(...args) {
-		console.log(packageLabel, chalk.green(args.join(' ')));
+		_emit(chalk.green(args.join(' ')));
 	},
 	info: function(...args) {
-		console.log(packageLabel, args.join(' '));
+		_emit(args.join(' '));
 	},
 	warn: function(...args) {
-		console.log(packageLabel, chalk.yellow(args.join(' ')));
+		_emit(chalk.yellow(args.join(' ')));
 	},
 	error: function(...args) {
-		console.log(packageLabel, chalk.red(args.join(' ')));
+		_emit(chalk.red(args.join(' ')));
 	},
 	file: function(...args) {
-		console.log(packageLabel, chalk.yellow(args.join(' ')), 'file created!');
+		_emit(chalk.yellow(args.join(' ')) + ' file created!');
+	},
+	item: function(...args) {
+		console.log('   ' + args.join(' '));
+	},
+	block: function(header, ...lines) {
+		console.log(packageLabel, header);
+		for (const line of lines) {
+			console.log(line === '' ? '' : '   ' + line);
+		}
+	},
+	startSection: function() {
+		_sectionMode = true;
+		_sectionHeaderEmitted = false;
+	},
+	endSection: function() {
+		_sectionMode = false;
+		_sectionHeaderEmitted = false;
 	}
 }
 
@@ -64,27 +102,29 @@ exports.install = install;
 
 //! list Command
 function list(folder) {
-	if (folder) {
-		logger.success('List of variants for', chalk.yellow(folder));
-		walkSync(path.resolve(__dirname, `dist/${folder}`), (viewPath, spaces) => {
-			if (viewPath.length > 0) {
-				logger.info(spaces + '└─ ' + viewPath.join(', '));
-			}
-		});
-	} else {
-		logger.success('Available components and their variants:');
-		walkSync(path.resolve(__dirname, `dist`), (viewPath, spaces) => {
-			if (viewPath.length > 0) {
-				logger.info(spaces + '└─ ' + viewPath.join(', '));
-			}
-		});
-	}
+	logger.startSection();
+	try {
+		if (folder) {
+			logger.success('List of variants for', chalk.yellow(folder));
+			walkSync(path.resolve(__dirname, `dist/${folder}`), (viewPath, spaces) => {
+				if (viewPath.length > 0) {
+					logger.info(spaces + '└─ ' + viewPath.join(', '));
+				}
+			});
+		} else {
+			logger.success('Available components and their variants:');
+			walkSync(path.resolve(__dirname, `dist`), (viewPath, spaces) => {
+				if (viewPath.length > 0) {
+					logger.info(spaces + '└─ ' + viewPath.join(', '));
+				}
+			});
+		}
 
-	console.log('\n' + packageLabel, 'Run', chalk.yellow('`tikit install`'), 'and follow an interactive select prompt');
-	// logger.info('Run', chalk.yellow('`tikit install all`'), 'to install the entire component library');
-	// logger.info('Run', chalk.yellow('`tikit install [componet]`'), 'to install all files and variants of a component');
-	// logger.info('Run', chalk.yellow('`tikit install [componet/variant]`'), 'to install all files of a component’s variant');
-	// logger.info('Run', chalk.yellow('`tikit install [componet/variant] [name]`'), 'to install a single file of a component’s variant');
+		logger.info('');
+		logger.info('Run', chalk.yellow('`tikit install`'), 'and follow an interactive select prompt');
+	} finally {
+		logger.endSection();
+	}
 }
 exports.list = list;
 
@@ -93,13 +133,18 @@ function help(component) {
 	if (component) {
 		logger.info('Showing:', component);
 	} else {
-		logger.info('Please run:', chalk.yellow('`tikit help <component>`'), 'to learn more about it!');
+		logger.startSection();
+		try {
+			logger.info('Please run:', chalk.yellow('`tikit help <component>`'), 'to learn more about it!');
 
-		const publicComponents = require(path.resolve(__dirname, 'core/scripts/public-components'));
+			const publicComponents = require(path.resolve(__dirname, 'core/scripts/public-components'));
 
-		const availableComponents = _.flatMap(publicComponents.components, (data, component) => component).join(', ');
+			const availableComponents = _.flatMap(publicComponents.components, (data, component) => component).join(', ');
 
-		logger.info('Avaliable components:', chalk.yellow(availableComponents));
+			logger.info('Available components:', chalk.yellow(availableComponents));
+		} finally {
+			logger.endSection();
+		}
 	}
 }
 exports.help = help;
@@ -194,15 +239,20 @@ function prompts() {
 }
 
 function postInstall(message) {
-	if (!fs.existsSync(cwd + '/app/lib')
-		|| !fs.existsSync(cwd + '/app/lib/tikit.ui.js')
-		|| fs.statSync(path.resolve(__dirname, 'dist/lib/tikit.ui.js')).mtime > fs.statSync(cwd + '/app/lib/tikit.ui.js').mtime) {
-		installKitUI();
+	logger.startSection();
+	try {
+		if (!fs.existsSync(cwd + '/app/lib')
+			|| !fs.existsSync(cwd + '/app/lib/tikit.ui.js')
+			|| fs.statSync(path.resolve(__dirname, 'dist/lib/tikit.ui.js')).mtime > fs.statSync(cwd + '/app/lib/tikit.ui.js').mtime) {
+			installKitUI();
+		}
+
+		logger.info('Components installed in', message);
+
+		checkForFontAwesome();
+	} finally {
+		logger.endSection();
 	}
-
-	logger.info('Components installed in', message);
-
-	checkForFontAwesome();
 }
 
 function walkSync(currentDirPath, callback, spaces = '') {
@@ -242,7 +292,7 @@ function checkForFontAwesome() {
 }
 
 function installFontAwesomeMessage() {
-	console.log();
+	logger.info('');
 	logger.warn('Some components use FontAwesome Icons!');
 	logger.warn('Please install them with:', chalk.green(`purgetss icon-library -v=fa`));
 }
