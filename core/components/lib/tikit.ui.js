@@ -143,6 +143,8 @@ exports.createForm = args => {
     args.variant = 'input'
   }
 
+  resolveFormArgs(args)
+
   if (componentExists('forms', args.variant, args.color)) {
     return createComponent('forms', args.variant, args.color, args)
   }
@@ -235,6 +237,30 @@ exports.createTikitInput = args => {
   return kitComponent
 }
 
+exports.createTikitTextField = args => {
+  let kitComponent = Ti.UI.createTextField(args)
+
+  if (args.classes) {
+    kitComponent.applyProperties(createStyles(args.classes.split(' ').filter((classes) =>
+      /^(bg-|text-|hint-text-|border-|font-|rounded|p-)/.test(classes)
+    ), 'Ti.UI.TextField'))
+  }
+
+  return kitComponent
+}
+
+exports.createTikitTextArea = args => {
+  let kitComponent = Ti.UI.createTextArea(args)
+
+  if (args.classes) {
+    kitComponent.applyProperties(createStyles(args.classes.split(' ').filter((classes) =>
+      /^(bg-|text-|hint-text-|border-|font-|rounded|p-)/.test(classes)
+    ), 'Ti.UI.TextArea'))
+  }
+
+  return kitComponent
+}
+
 // !Helper Functions
 function tiKitEvent({ source }) {
   // Remove alert
@@ -254,6 +280,100 @@ function tiKitCodeEvent({ source }) {
     setTimeout(() => source.applyProperties({ title: L('copy', 'Copy') }), 1500)
   } else if (source.btn === 'close') {
     source.parent.parent.hide()
+  }
+}
+
+function resolveFormArgs(args) {
+  const KEYBOARD_TYPES = {
+    'default': Ti.UI.KEYBOARD_TYPE_DEFAULT,
+    'ascii': Ti.UI.KEYBOARD_TYPE_ASCII,
+    'decimal': Ti.UI.KEYBOARD_TYPE_DECIMAL_PAD,
+    'email': Ti.UI.KEYBOARD_TYPE_EMAIL,
+    'namephone': Ti.UI.KEYBOARD_TYPE_NAMEPHONE_PAD,
+    'number': Ti.UI.KEYBOARD_TYPE_NUMBER_PAD,
+    'numbers-punctuation': Ti.UI.KEYBOARD_TYPE_NUMBERS_PUNCTUATION,
+    'phone': Ti.UI.KEYBOARD_TYPE_PHONE_PAD,
+    'twitter': Ti.UI.KEYBOARD_TYPE_TWITTER,
+    'url': Ti.UI.KEYBOARD_TYPE_URL,
+    'websearch': Ti.UI.KEYBOARD_TYPE_WEBSEARCH
+  }
+
+  const KEYBOARD_APPEARANCES = {
+    'default': Ti.UI.KEYBOARD_APPEARANCE_DEFAULT,
+    'dark': Ti.UI.KEYBOARD_APPEARANCE_DARK,
+    'light': Ti.UI.KEYBOARD_APPEARANCE_LIGHT
+  }
+
+  const RETURN_KEYS = {
+    'default': Ti.UI.RETURNKEY_DEFAULT,
+    'continue': Ti.UI.RETURNKEY_CONTINUE,
+    'done': Ti.UI.RETURNKEY_DONE,
+    'go': Ti.UI.RETURNKEY_GO,
+    'google': Ti.UI.RETURNKEY_GOOGLE,
+    'join': Ti.UI.RETURNKEY_JOIN,
+    'next': Ti.UI.RETURNKEY_NEXT,
+    'route': Ti.UI.RETURNKEY_ROUTE,
+    'search': Ti.UI.RETURNKEY_SEARCH,
+    'send': Ti.UI.RETURNKEY_SEND,
+    'yahoo': Ti.UI.RETURNKEY_YAHOO,
+    'emergency-call': Ti.UI.RETURNKEY_EMERGENCY_CALL
+  }
+
+  const AUTOCAPS = {
+    'none': Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+    'sentences': Ti.UI.TEXT_AUTOCAPITALIZATION_SENTENCES,
+    'words': Ti.UI.TEXT_AUTOCAPITALIZATION_WORDS,
+    'all': Ti.UI.TEXT_AUTOCAPITALIZATION_ALL
+  }
+
+  const TYPE_BUNDLES = {
+    text:     { keyboardType: 'default',   passwordMask: false, autocorrect: true  },
+    email:    { keyboardType: 'email',     passwordMask: false, autocorrect: false },
+    password: { keyboardType: 'default',   passwordMask: true,  autocorrect: false },
+    number:   { keyboardType: 'number',    passwordMask: false, autocorrect: false },
+    decimal:  { keyboardType: 'decimal',   passwordMask: false, autocorrect: false },
+    phone:    { keyboardType: 'phone',     passwordMask: false, autocorrect: false },
+    url:      { keyboardType: 'url',       passwordMask: false, autocorrect: false },
+    search:   { keyboardType: 'websearch', passwordMask: false, autocorrect: true  }
+  }
+
+  if (args.type && TYPE_BUNDLES[args.type]) {
+    Object.keys(TYPE_BUNDLES[args.type]).forEach((key) => {
+      if (args[key] === undefined) args[key] = TYPE_BUNDLES[args.type][key]
+    })
+  }
+
+  if (typeof args.keyboardType === 'string' && KEYBOARD_TYPES[args.keyboardType] !== undefined) {
+    args.keyboardType = KEYBOARD_TYPES[args.keyboardType]
+  }
+  if (typeof args.keyboardAppearance === 'string' && KEYBOARD_APPEARANCES[args.keyboardAppearance] !== undefined) {
+    args.keyboardAppearance = KEYBOARD_APPEARANCES[args.keyboardAppearance]
+  }
+  if (typeof args.returnKeyType === 'string' && RETURN_KEYS[args.returnKeyType] !== undefined) {
+    args.returnKeyType = RETURN_KEYS[args.returnKeyType]
+  }
+  if (typeof args.autocapitalization === 'string' && AUTOCAPS[args.autocapitalization] !== undefined) {
+    args.autocapitalization = AUTOCAPS[args.autocapitalization]
+  }
+
+  if (args.passwordMask === 'true') args.passwordMask = true
+  else if (args.passwordMask === 'false') args.passwordMask = false
+
+  if (args.clearOnEdit === 'true') args.clearOnEdit = true
+  else if (args.clearOnEdit === 'false') args.clearOnEdit = false
+
+  if (args.enableReturnKey === 'true') args.enableReturnKey = true
+  else if (args.enableReturnKey === 'false') args.enableReturnKey = false
+
+  if (args.suppressReturn === 'true') args.suppressReturn = true
+  else if (args.suppressReturn === 'false') args.suppressReturn = false
+
+  if (args.autocorrect === 'true') args.autocorrect = true
+  else if (args.autocorrect === 'false') args.autocorrect = false
+
+  if (typeof args.maxLength === 'string') {
+    const n = Number(args.maxLength)
+    if (!isNaN(n)) args.maxLength = n
   }
 }
 
