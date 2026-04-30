@@ -493,6 +493,91 @@ Pass `inputType="textarea"` to swap the `TextField` for a `TextArea`:
 <Form module="tikit.ui" variant="input" color="dark" inputType="textarea" label="Notes" hintText="Anything we should know?" />
 ```
 
+### Keyboard Configuration
+
+Forms expose three layers for configuring the on-screen keyboard, from highest-level to lowest. Pick the one that fits the situation; they all coexist and the lower layers override the higher ones.
+
+**Layer 1 — `type` (HTML-style shortcut):**
+
+`type` is *not* a reserved Titanium property, so TiKit borrows the name and uses it the way HTML does — a single value that picks a sensible bundle of keyboard settings. This covers the common cases without making you remember Ti constants.
+
+| `type=` | Keyboard | Autocorrect | Password mask |
+|---|---|---|---|
+| `"text"` *(default)* | Default | On | Off |
+| `"email"` | Email | Off | Off |
+| `"password"` | Default | Off | **On** |
+| `"number"` | Number pad | Off | Off |
+| `"decimal"` | Decimal pad | Off | Off |
+| `"phone"` | Phone pad | Off | Off |
+| `"url"` | URL | Off | Off |
+| `"search"` | Web search | On | Off |
+
+```xml
+<Form module="tikit.ui" type="email"    label="Email"    hintText="you@example.com" />
+<Form module="tikit.ui" type="password" label="Password" />
+<Form module="tikit.ui" type="phone"    label="Mobile" />
+```
+
+**Layer 2 — Direct props (fine-grained):**
+
+When `type` doesn't go far enough, pass the Titanium property names directly with friendly lowercase values. TiKit translates them to the right `Ti.UI.*` constant before applying.
+
+| Prop | Accepted values | Notes |
+|---|---|---|
+| `keyboardType` | `default`, `ascii`, `decimal`, `email`, `namephone`, `number`, `numbers-punctuation`, `phone`, `twitter`, `url`, `websearch` | Cross-platform |
+| `keyboardAppearance` | `default`, `dark`, `light` | iOS only (silent no-op on Android) |
+| `returnKeyType` | `default`, `continue`, `done`, `go`, `google`, `join`, `next`, `route`, `search`, `send`, `yahoo`, `emergency-call` | Cross-platform — see TextArea note below |
+| `enableReturnKey` | `"true"` or `"false"` | Disables the Return key until the field has content |
+| `suppressReturn` | `"true"` or `"false"` | iOS only — fires `return` event instead of inserting a newline |
+| `passwordMask` | `"true"` or `"false"` | Cross-platform |
+| `clearOnEdit` | `"true"` or `"false"` | Android-only on TextArea (TextField cross-platform) |
+| `maxLength` | A number | Cross-platform |
+| `autocapitalization` | `none`, `sentences`, `words`, `all` | Cross-platform |
+| `autocorrect` | `"true"` or `"false"` | Cross-platform — overrides whatever `type` set |
+| `autofillType` | A `Ti.UI.AUTOFILL_TYPE_*` constant | Cross-platform — pass the constant directly |
+
+```xml
+<Form module="tikit.ui"
+      type="email"
+      keyboardAppearance="dark"
+      returnKeyType="next"
+      maxLength="120"
+      label="Email" />
+```
+
+Direct props win over the bundle from `type` — useful when you want, say, an email keyboard with a `next` return key.
+
+> **Android TextArea gotcha:** `returnKeyType` on a TextArea works very differently across platforms. On **iOS** it only changes the label on the Return key — pressing it still inserts a newline. On **Android** it replaces the IME action of the Enter key, which **suppresses the newline**. If you need users to insert line breaks on Android, leave `returnKeyType` as `default` (or omit it) on textareas.
+
+**Layer 3 — PurgeTSS classes (escape hatch):**
+
+For utility-class purists, the existing PurgeTSS classes still work via `classes`:
+
+```xml
+<Form module="tikit.ui" classes="keyboard-type-email keyboard-appearance-dark return-key-type-next" label="Email" />
+```
+
+> **Note:** `loginKeyboardType`, `passwordKeyboardType`, `loginReturnKeyType`, and `passwordReturnKeyType` are exclusive to `Ti.UI.AlertDialog` and aren't applicable to standalone form fields.
+
+### Updating Form Fields
+
+Forms expose `updateLabel`, `updateInput`, and `updateError` on the proxy, plus a generic `update(...)` that accepts any combination of those elements:
+
+```javascript
+function prefillForm() {
+  $.emailField.update({
+    label: 'Work email',
+    input: 'user@example.com'
+  })
+}
+```
+
+You can also call the individual setters when you only need one element:
+
+```javascript
+$.emailField.updateError('That email is already taken')
+```
+
 -----
 
 ## Tabs
@@ -529,6 +614,89 @@ Since these are essentially `Titanium.UI.Tab` objects, you can use standard prop
 
 -----
 
+## 🎨 Customizing Components
+
+TiKit gives you three layers of customization that work together. Pick the layer that fits the situation:
+
+### Layer 1 — Semantic presets (recommended for consistency)
+
+Every component ships with a small set of named presets — `dark`, `light`, `white`, `black`, plus semantic colors like `success`, `danger`, `warning`, `info` (and `primary`, `secondary` if you've configured them). They cover the most common cases and communicate intent at a glance, the same way `btn-success` does in Bootstrap.
+
+```xml
+<Alert  module="tikit.ui" color="success" title="Saved!" />
+<Card   module="tikit.ui" color="dark"    title="Status"    text="All good" />
+<Button module="tikit.ui" color="primary" title="Submit"    icon="fa fa-check" />
+<Form   module="tikit.ui" color="dark"    label="Email"     hintText="you@example.com" />
+```
+
+If a preset already says what you mean, use it. You'll get consistent visuals across the app for free.
+
+### Layer 2 — Runtime overrides via `classes`
+
+When a specific instance needs to break from the preset, pass PurgeTSS utility classes through the `classes` argument. TiKit distributes those classes to the right inner elements automatically:
+
+| What you pass | Where it lands |
+|---|---|
+| `bg-*`, layout utilities | Wrapper / inner colored Views |
+| `text-*`, `font-*` | Inner text Labels (`title`, `subtitle`, `text`, `name`, `label`, etc.) |
+| `bg-*`, `text-*`, `hint-text-*`, `border-*`, `font-*`, `rounded`, `p-*` | Inner `TextField` / `TextArea` (Forms only) |
+
+```xml title="Cards"
+<Card module="tikit.ui"
+      color="dark"
+      classes="bg-blue-500/80 text-white"
+      title="Custom card"
+      text="Background and text color overridden." />
+```
+
+```xml title="Forms"
+<Form module="tikit.ui"
+      type="email"
+      label="Email"
+      classes="bg-pink-50 text-pink-800 hint-text-pink-300 border-pink-300" />
+```
+
+The wrapper gets background/layout classes; inner Labels get text/font classes; inner TextField/TextArea get the full visual set. You don't need to think about which element receives what — TiKit's filters handle it.
+
+> **Composed transparency caveat:** Some presets layer transparency on top of the color (e.g. `text-{color}/80` for secondary text in Cards). When you pass a runtime `text-blue-500`, the `/80` is replaced with full opacity. To preserve the soft-text effect, pass `text-blue-500/80` (or whatever shade you want) explicitly.
+
+### Layer 3 — Define your own presets in PurgeTSS
+
+If the same override keeps showing up, promote it to a project-wide preset. Open your `tailwind.config.js` and either fill in `primary` / `secondary` (which TiKit components already pick up via `color="primary"` / `color="secondary"`) or add brand-new colors:
+
+```javascript title="tailwind.config.js"
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50:  '#eef2ff',
+          // …shade scale up to 950
+          DEFAULT: '#4f46e5'
+        },
+        brand: {
+          // any custom palette you want to reuse
+          500: '#14b8a6',
+          600: '#0d9488'
+        }
+      }
+    }
+  }
+}
+```
+
+Run `purgetss build` and your project now exposes `bg-primary`, `text-brand-500`, etc. — usable in `classes` everywhere TiKit accepts them, and `color="primary"` automatically themes any preset-aware component.
+
+### Which layer should I reach for?
+
+- **One-off look for a single instance** → Layer 2 (`classes`).
+- **Same custom look used across the app** → Layer 3 (define a PurgeTSS preset).
+- **Communicating semantic intent** (`success`, `danger`, etc.) → Layer 1.
+
+You can mix all three on the same component without conflicts.
+
+-----
+
 ## ✨ Updating Components Dynamically
 
 One of the coolest things about TiKit is that you don't need to destroy and recreate components just to change simple things like text or an image. This makes your app feel more responsive!
@@ -552,7 +720,10 @@ You can call these on your component's proxy (e.g., `$.myCard.updateTitle(...)`)
 4.  **`updateName(newName)`**: Changes the name (useful for Avatar `chip` variant).
 5.  **`updateImage(newImage)`**: Changes the image (path or blob).
 6.  **`updateIcon(newIcon)`**: Changes the icon class string (for Alerts, Buttons).
-7.  **`update(args)`**: A handy shortcut to update multiple properties at once. Pass an object like `{ title: 'New', text: 'Updated text' }`. Supports `title`, `subtitle`, `text`, `name`, `image`, and `icon`.
+7.  **`updateLabel(newLabel)`**: Changes the label text (Forms).
+8.  **`updateInput(newValue)`**: Sets the input value (Forms).
+9.  **`updateError(newError)`**: Sets the error label text (Forms).
+10. **`update(args)`**: A handy shortcut to update multiple elements at once. Pass an object whose keys match the elements that component exposes — e.g. `{ title: 'New', text: 'Updated text' }` for a Card, or `{ label: 'Email', input: 'user@example.com' }` for a Form. Unknown keys are ignored with a warning.
 
 ### Which Components Support Updates?
 
