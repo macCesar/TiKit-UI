@@ -221,7 +221,7 @@ exports.createTikitCode = args => {
   }
 
   if (args.classes) {
-    kitComponent.applyProperties(createStyles(args.classes.split(' ').filter((classes) => !classes.includes('bg-')), 'Ti.UI.View'))
+    kitComponent.applyProperties(createStyles(args.classes.split(' '), 'Ti.UI.View'))
   }
 
   return kitComponent
