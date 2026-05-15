@@ -453,17 +453,23 @@ Capture user input with consistent, themable form fields. Forms come with built-
 **TiKit Form Variants:**
 
   * `input`: A label, an input field (single-line `TextField` or multi-line `TextArea`), and an error label below.
+  * `switch`: A label and a `Ti.UI.Switch` toggle below it.
+  * `date`: A tappable field that opens a modal sheet with a native date picker. Stores the value as `YYYY-MM-DD`.
+  * `time`: A tappable field that opens a modal sheet with a native time picker. Stores the value as `HH:mm`.
+  * `select`: A tappable field that opens a modal sheet with a native plain picker. Options are passed as a JSON array; the picked option's `value` is what gets stored.
 
 **Colors:** Each variant comes in `success`, `danger`, `warning`, `info`, `dark`, `light`, `white`, and `black`. You can also use `primary` and `secondary` if you've configured them with PurgeTSS shades.
 
 **Extra Controls:**
 
   * `label` (string): Text shown above the input.
-  * `value` (string): Initial value of the input.
-  * `hintText` (string): Placeholder shown when the input is empty.
-  * `required` (boolean): Makes the field mandatory for `isValid()` checks.
+  * `value` (string | boolean): Initial value of the field. For `switch` accepts `"true"`/`"false"` or a real boolean. For `date`/`time` accepts the formatted string (`YYYY-MM-DD` / `HH:mm`). For `select` it must match one of the options' `value` field.
+  * `hintText` (string): Placeholder shown when the input is empty (also used as the trigger placeholder for `date`/`time`/`select` when no value has been picked yet).
+  * `required` (boolean): Makes the field mandatory for `isValid()` checks. **No-op on `switch`** — booleans are always defined.
   * `errorMessage` (string): Optional text for the error label below the input.
-  * `inputType` (string): Pass `"textarea"` to render a multi-line `TextArea` instead of a `TextField`.
+  * `inputType` (string): Pass `"textarea"` to render a multi-line `TextArea` instead of a `TextField` (`input` variant only).
+  * `options` (array | JSON string): For `select` — array of `{ title, value }` objects. Can be passed as a stringified JSON via XML attribute or assigned from a controller.
+  * `minDate` / `maxDate` (`YYYY-MM-DD` strings): For `date` only — restrict the selectable range.
 
 ```xml title="Basic Input Example"
 <Form id="emailField" module="tikit.ui" variant="input" color="dark" label="Email" hintText="you@example.com" required="true" />
@@ -559,6 +565,68 @@ For utility-class purists, the existing PurgeTSS classes still work via `classes
 
 > **Note:** `loginKeyboardType`, `passwordKeyboardType`, `loginReturnKeyType`, and `passwordReturnKeyType` are exclusive to `Ti.UI.AlertDialog` and aren't applicable to standalone form fields.
 
+### Switch Variant
+
+Toggle a boolean value with `variant="switch"`. The wrapper keeps the same vertical layout as `input` (label on top, control below).
+
+```xml title="Switch Example"
+<Form id="agree" module="tikit.ui" variant="switch" color="primary"
+      label="Accept terms" value="false" />
+```
+
+```javascript
+function onSubmit() {
+  if ($.agree.getValue() === true) {
+    // user agreed
+  }
+}
+```
+
+> `getValue()` returns a real boolean. `isValid()` is always `true` (a boolean is never empty). `update({ input: true })` flips the toggle programmatically.
+
+### Date and Time Variants
+
+`variant="date"` and `variant="time"` render a tappable field styled like the text input. Tapping opens a modal sheet with a native `Ti.UI.Picker` plus Cancel/OK buttons.
+
+```xml title="Date Example"
+<Form id="dob" module="tikit.ui" variant="date" color="dark"
+      label="Birth date" value="2000-01-01"
+      minDate="1900-01-01" maxDate="2026-12-31" />
+
+<Form id="appt" module="tikit.ui" variant="time" color="dark"
+      label="Appointment time" value="09:30" />
+```
+
+```javascript
+$.dob.getValue()   // → "2000-01-01"
+$.appt.getValue()  // → "09:30"
+$.dob.update({ input: '1990-06-15' })  // re-formats the trigger label
+```
+
+> **Value format:** date is stored as `YYYY-MM-DD` and time as `HH:mm` — no timezone, no time-of-day for date — to keep values JSON-safe and free of timezone drift. The same format is what you pass into `value` and what you get back from `getValue()`.
+
+### Select Variant
+
+`variant="select"` renders a tappable field; tapping opens a modal sheet with a native plain picker populated from `options`.
+
+```xml title="Select Example"
+<Form id="size" module="tikit.ui" variant="select" color="primary"
+      label="Size" required="true"
+      options='[{"title":"Small","value":"S"},{"title":"Medium","value":"M"},{"title":"Large","value":"L"}]' />
+```
+
+You can also assign `options` from a controller — handy for dynamic lists:
+
+```javascript
+$.size.options = [
+  { title: 'Small',  value: 'S' },
+  { title: 'Medium', value: 'M' },
+  { title: 'Large',  value: 'L' }
+]
+```
+
+> **Stored value:** the option's `value` field, not its `title` (mirrors HTML `<select>`). `getValue()` returns the value of the picked option, or `''` if the user has not picked anything yet.
+
 ### Updating Form Fields
 
 Forms expose `updateLabel`, `updateInput`, and `updateError` on the proxy, plus a generic `update(...)` that accepts any combination of those elements:
@@ -639,7 +707,8 @@ When a specific instance needs to break from the preset, pass PurgeTSS utility c
 |---|---|
 | `bg-*`, layout utilities | Wrapper / inner colored Views |
 | `text-*`, `font-*` | Inner text Labels (`title`, `subtitle`, `text`, `name`, `label`, etc.) |
-| `bg-*`, `text-*`, `hint-text-*`, `border-*`, `font-*`, `rounded`, `p-*` | Inner `TextField` / `TextArea` (Forms only) |
+| `bg-*`, `text-*`, `hint-text-*`, `border-*`, `font-*`, `rounded`, `p-*` | Inner `TextField` / `TextArea` and Date/Time/Select trigger (Forms) |
+| `tint-color-*`, `on-tint-*`, `thumb-*`, `on-thumb-*` | Inner `Ti.UI.Switch` (Forms `switch` variant) |
 
 ```xml title="Cards"
 <Card module="tikit.ui"

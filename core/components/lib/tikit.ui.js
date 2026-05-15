@@ -261,6 +261,42 @@ exports.createTikitTextArea = args => {
   return kitComponent
 }
 
+exports.createTikitSwitch = args => {
+  if (args.value === 'true') args.value = true
+  else if (args.value === 'false') args.value = false
+
+  let kitComponent = Ti.UI.createSwitch(args)
+
+  if (args.classes) {
+    kitComponent.applyProperties(createStyles(args.classes.split(' ').filter((classes) =>
+      /^(bg-|tint-color-|on-tint-|thumb-|on-thumb-|rounded)/.test(classes)
+    ), 'Ti.UI.Switch'))
+  }
+
+  return kitComponent
+}
+
+exports.createTikitPicker = args => {
+  args.text = formatPickerDisplay(args.value, args)
+
+  let kitComponent = Ti.UI.createLabel(args)
+
+  kitComponent._tikitValue = (args.value !== undefined && args.value !== '') ? args.value : ''
+  kitComponent._tikitArgs = args
+
+  if (args.classes) {
+    kitComponent.applyProperties(createStyles(args.classes.split(' ').filter((classes) =>
+      /^(bg-|text-|hint-text-|border-|font-|rounded|p-)/.test(classes)
+    ), 'Ti.UI.Label'))
+  }
+
+  kitComponent.addEventListener('click', () => {
+    openPickerSheet(kitComponent, args.pickerType, args.options, args)
+  })
+
+  return kitComponent
+}
+
 // !Helper Functions
 function tiKitEvent({ source }) {
   // Remove alert
@@ -375,6 +411,23 @@ function resolveFormArgs(args) {
     const n = Number(args.maxLength)
     if (!isNaN(n)) args.maxLength = n
   }
+
+  if (args.required === 'true') args.required = true
+  else if (args.required === 'false') args.required = false
+
+  if (args.variant === 'switch') {
+    if (args.value === 'true') args.value = true
+    else if (args.value === 'false') args.value = false
+  }
+
+  if (args.variant === 'select' && typeof args.options === 'string') {
+    try {
+      args.options = JSON.parse(args.options)
+    } catch (e) {
+      console.warn('[TiKit] Failed to parse options JSON: ' + e.message)
+      args.options = []
+    }
+  }
 }
 
 function componentExists(component, variant, file) {
@@ -408,16 +461,35 @@ function createComponent(component, variant, file, args) {
   componentView.elements = tempElements
 
   // Common methods for all components
-  componentView.getValue = () => componentView.elements['input']?.value || null
+  componentView.getValue = () => {
+    const el = componentView.elements['input']
+    if (!el) return null
+    if (el.apiName === 'Ti.UI.Switch') return !!el.value
+    if (el._tikitValue !== undefined) return el._tikitValue
+    return el.value || null
+  }
 
   componentView.isValid = (showError) => {
+    const el = componentView.elements['input']
     let valid = true
     let errorMessage = ''
-    let currentValue = componentView.elements['input']?.value || ''
 
-    if (componentView.elements['input']?.required && !currentValue.trim()) {
-      valid = false
-      errorMessage = L('this_field_is_required', 'This field is required')
+    if (el) {
+      if (el.apiName === 'Ti.UI.Switch') {
+        valid = true
+      } else if (el._tikitValue !== undefined) {
+        const pickerValue = el._tikitValue
+        if (el.required && (pickerValue === '' || pickerValue === null || pickerValue === undefined)) {
+          valid = false
+          errorMessage = L('this_field_is_required', 'This field is required')
+        }
+      } else {
+        const currentValue = el.value || ''
+        if (el.required && !currentValue.trim()) {
+          valid = false
+          errorMessage = L('this_field_is_required', 'This field is required')
+        }
+      }
     }
 
     if (showError !== false) {
@@ -442,7 +514,18 @@ function createComponent(component, variant, file, args) {
       } else if (element === 'image') {
         props = { image: value }
       } else if (element === 'input') {
-        props = { value: value }
+        const el = componentView.elements['input']
+        if (el && el.apiName === 'Ti.UI.Switch') {
+          let v = value
+          if (v === 'true') v = true
+          else if (v === 'false') v = false
+          props = { value: !!v }
+        } else if (el && el._tikitValue !== undefined) {
+          el._tikitValue = value
+          props = { text: formatPickerDisplay(value, el._tikitArgs || {}) }
+        } else {
+          props = { value: value }
+        }
       } else if (element === 'icon') {
         props = value
       }
@@ -485,6 +568,128 @@ function labelToImage(_styles) {
   }
 
   return Ti.UI.createLabel(_styles).toImage()
+}
+
+function formatPickerDisplay(value, args) {
+  if (value === undefined || value === null || value === '') {
+    return args.hintText || ''
+  }
+  if (args.pickerType === 'select' && Array.isArray(args.options)) {
+    let match = args.options.find(o => o.value === value)
+    if (match) return match.title
+  }
+  return String(value)
+}
+
+function pad2(n) {
+  return (n < 10 ? '0' : '') + n
+}
+
+function formatDate(d) {
+  return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate())
+}
+
+function formatTime(d) {
+  return pad2(d.getHours()) + ':' + pad2(d.getMinutes())
+}
+
+function parseDate(s) {
+  if (!s) return new Date()
+  let parts = String(s).split('-')
+  if (parts.length === 3) {
+    return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))
+  }
+  return new Date()
+}
+
+function parseTime(s) {
+  let d = new Date()
+  if (!s) return d
+  let parts = String(s).split(':')
+  if (parts.length >= 2) {
+    d.setHours(Number(parts[0]), Number(parts[1]), 0, 0)
+  }
+  return d
+}
+
+function openPickerSheet(trigger, pickerType, options, args) {
+  let pickerProps = { width: Ti.UI.FILL, top: 56, bottom: 0 }
+  let workingValue = trigger._tikitValue
+
+  if (pickerType === 'date') {
+    pickerProps.type = Ti.UI.PICKER_TYPE_DATE
+    pickerProps.value = parseDate(trigger._tikitValue || args.value)
+    if (args.minDate) pickerProps.minDate = parseDate(args.minDate)
+    if (args.maxDate) pickerProps.maxDate = parseDate(args.maxDate)
+    if (!workingValue) workingValue = formatDate(pickerProps.value)
+  } else if (pickerType === 'time') {
+    pickerProps.type = Ti.UI.PICKER_TYPE_TIME
+    pickerProps.value = parseTime(trigger._tikitValue || args.value)
+    if (!workingValue) workingValue = formatTime(pickerProps.value)
+  } else {
+    pickerProps.type = Ti.UI.PICKER_TYPE_PLAIN
+  }
+
+  let picker = Ti.UI.createPicker(pickerProps)
+
+  let pickerRows = null
+  if (pickerType === 'select' && Array.isArray(options)) {
+    pickerRows = options.map(opt => Ti.UI.createPickerRow({ title: opt.title, customValue: opt.value }))
+    picker.add(pickerRows)
+
+    let selectedIdx = options.findIndex(o => o.value === workingValue)
+    if (selectedIdx < 0 && options.length > 0) {
+      selectedIdx = 0
+      workingValue = options[0].value
+    }
+    if (selectedIdx >= 0) {
+      picker.setSelectedRow(0, selectedIdx, false)
+    }
+  }
+
+  picker.addEventListener('change', e => {
+    if (pickerType === 'date') workingValue = formatDate(e.value)
+    else if (pickerType === 'time') workingValue = formatTime(e.value)
+    else if (pickerType === 'select' && e.row) workingValue = e.row.customValue
+  })
+
+  let sheet = Ti.UI.createWindow({
+    backgroundColor: '#ffffff',
+    modal: true
+  })
+
+  let bar = Ti.UI.createView({
+    top: 0,
+    width: Ti.UI.FILL,
+    height: 56,
+    backgroundColor: '#f3f4f6'
+  })
+
+  let cancelBtn = Ti.UI.createButton({
+    title: args.cancelTitle || L('cancel', 'Cancel'),
+    left: 16
+  })
+  cancelBtn.addEventListener('click', () => sheet.close())
+
+  let okBtn = Ti.UI.createButton({
+    title: args.okTitle || L('ok', 'OK'),
+    right: 16
+  })
+  okBtn.addEventListener('click', () => {
+    trigger._tikitValue = workingValue
+    trigger.applyProperties({ text: formatPickerDisplay(workingValue, args) })
+    if (typeof trigger.fireEvent === 'function') {
+      trigger.fireEvent('change', { value: workingValue })
+    }
+    sheet.close()
+  })
+
+  bar.add(cancelBtn)
+  bar.add(okBtn)
+
+  sheet.add(bar)
+  sheet.add(picker)
+  sheet.open()
 }
 
 // ! createAnnotation still in development!!

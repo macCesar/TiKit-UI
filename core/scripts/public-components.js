@@ -55,7 +55,7 @@ exports.components = {
   forms: {
     base: 'color',
     help: 'Forms\' Help',
-    templates: ['input'],
+    templates: ['input', 'switch', 'date', 'time', 'select'],
     properties: [
       { name: 'danger', hint: 'red-300', border: 'red-500', label: 'red-500', text: 'red-600' },
       { name: 'info', hint: 'cyan-300', border: 'cyan-500', label: 'cyan-500', text: 'cyan-600' },

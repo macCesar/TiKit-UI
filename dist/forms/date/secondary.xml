@@ -1,0 +1,7 @@
+<Alloy>
+  <TikitInput module="tikit.ui" id="$.args.id" component="input" class="vertical mb-2 h-auto w-screen" classes="$.args.classes">
+    <Label module="tikit.ui" if="$.args.label" id="label" classes="$.args.classes" class="text-secondary-900 w-screen text-left text-sm h-auto" text="$.args.label" />
+    <TikitPicker module="tikit.ui" id="input" classes="$.args.classes" pickerType="date" required="$.args.required" value="$.args.value" hintText="$.args.hintText" minDate="$.args.minDate" maxDate="$.args.maxDate" class="text-secondary mt-0.5 h-10 w-screen rounded border-secondary-800 bg-white/85 p-2 text-base normal-case" />
+    <Label id="error" class="ml-0 hidden text-left text-xs text-red-600" text="$.args.errorMessage" />
+  </TikitInput>
+</Alloy>
