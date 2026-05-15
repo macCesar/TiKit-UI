@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] — 2026-05-14
+
 ### Added
 
+- **Forms `switch` variant**: wraps `Ti.UI.Switch` with `tint-color-*` / `on-tint-*` / `thumb-*` PurgeTSS theming. `getValue()` returns a real boolean; `isValid()` is a no-op (booleans are always defined).
+- **Forms `date` and `time` variants**: tap-to-open modal sheet with a native `Ti.UI.Picker`. Values are stored timezone-free as `YYYY-MM-DD` (date) and `HH:mm` (time). `date` accepts `minDate`/`maxDate`.
+- **Forms `select` variant**: tap-to-open modal sheet with a plain picker. Options are passed as a JSON-string XML attribute (`options='[{"title":"S","value":1}]'`) or assigned from a controller; `getValue()` returns the option's `value`, not its title.
 - **Forms — Layer 1 keyboard `type` shortcut**: HTML-style values (`text`, `email`, `password`, `number`, `decimal`, `phone`, `url`, `search`) auto-bundle `keyboardType`, `passwordMask`, and `autocorrect`.
 - **Forms — Layer 2 direct keyboard props** with friendly string values translated to `Ti.UI.*` constants: `keyboardType`, `keyboardAppearance`, `returnKeyType`, `enableReturnKey`, `suppressReturn`, `passwordMask`, `clearOnEdit`, `maxLength`, `autocapitalization`, `autocorrect`, `autofillType`.
 - **Forms — generic `update(args)` bulk method**: pass an object like `{ input, label, error }` to update multiple form elements in one call.
